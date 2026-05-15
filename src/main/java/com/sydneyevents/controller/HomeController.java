@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -41,10 +42,21 @@ public class HomeController {
         List<DayView> days = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
             LocalDate date = today.plusDays(i);
-            List<Event> dayEvents = allEvents.stream()
+            List<Event> matching = allEvents.stream()
                     .filter(e -> e.occursOn(date))
-                    .limit(8)
                     .toList();
+
+            // Day-specific events (single-day or short runs) first;
+            // then long-running "always-on" anchors fill remaining slots.
+            Comparator<Event> spanThenTitle = Comparator
+                    .<Event, Long>comparing(e -> dayCount(e))
+                    .thenComparing(Event::getTitle, Comparator.nullsLast(Comparator.naturalOrder()));
+
+            List<Event> dayEvents = matching.stream()
+                    .sorted(spanThenTitle)
+                    .limit(12)
+                    .toList();
+
             days.add(new DayView(date, weatherByDate.get(date), dayEvents));
         }
 
@@ -58,5 +70,11 @@ public class HomeController {
     @org.springframework.web.bind.annotation.ResponseBody
     public Map<String, String> health() {
         return Map.of("status", "ok");
+    }
+
+    private static long dayCount(Event e) {
+        if (e.getStartDate() == null) return Long.MAX_VALUE;
+        LocalDate end = e.getEndDate() != null ? e.getEndDate() : e.getStartDate();
+        return end.toEpochDay() - e.getStartDate().toEpochDay() + 1;
     }
 }

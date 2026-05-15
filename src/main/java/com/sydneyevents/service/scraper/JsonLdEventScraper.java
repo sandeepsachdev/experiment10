@@ -51,6 +51,8 @@ public class JsonLdEventScraper implements EventScraper {
             try {
                 Document doc = Jsoup.connect(url)
                         .userAgent(userAgent)
+                        .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+                        .header("Accept-Language", "en-AU,en;q=0.9")
                         .timeout(timeoutMs)
                         .ignoreContentType(true)
                         .get();
