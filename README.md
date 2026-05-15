@@ -65,3 +65,50 @@ Render injects `PORT` automatically; the container reads it via `server.port`.
 - Jsoup for HTML scraping
 - Caffeine for in-memory caching
 - Docker, deployable to Render
+
+## Prompts used to build this app
+
+This project was built with Claude Code. The full prompt history is kept here
+so the codebase remains reproducible from intent. Append new prompts to the
+bottom of the list as the project evolves.
+
+### 1. Initial generation
+
+> Create a spring boot app that can deploy easily to render with a docker file.
+> The apps should scan sources to find what's in in Sydney each day in the
+> upcoming 7 days. There should be lots of pictures and description of the
+> events and also weather each day
+
+Produced the initial scaffold: Spring Boot 3.3 / Java 21 app, multi-stage
+`Dockerfile`, `render.yaml` blueprint, Open-Meteo weather integration, three
+event scrapers (City of Sydney *What's On*, JSON-LD on `sydney.com` and
+`sydneyoperahouse.com`), a curated fallback list, Thymeleaf UI with hero
+image, day navigation, weather cards and an event-card grid.
+
+### 2. "Only the curated highlights are showing"
+
+> Only the curated highlights are showing
+
+The live scrapers were being bot-blocked and the 12 always-open anchor
+attractions were filling every day's slot budget, so each day looked
+identical. Fixes:
+
+- Added `CitySydneyOpenDataScraper` (Opendatasoft JSON API — no HTML parsing)
+- Added `EventbriteScraper` (parses schema.org JSON-LD from Eventbrite Sydney)
+- Switched all scrapers to a realistic Chrome `User-Agent` and
+  `Accept-Language` header
+- Expanded `CuratedEventsProvider` with 17 day-of-week-specific recurring
+  events (Sat: Rocks Markets, Bondi Farmers, Darling Harbour fireworks;
+  Sun: Glebe / Bondi Markets, Opera Bar Sunday Sessions; Mon: comedy +
+  free yoga; Tue: swing + cheap cinema; Wed: twilight zoo + symphony
+  rehearsal; Thu: Art After Hours + late-night shopping; Fri: Carriageworks
+  Twilight Market + MCA Friday Live)
+- `HomeController` now sorts each day's events by run-length so single-day
+  recurring events surface before always-open anchors; per-day cap lifted
+  to 12
+
+### 3. Document the prompt history
+
+> Add prompt to generate this app to the readme. Add future prompts as well
+
+Added this section.
