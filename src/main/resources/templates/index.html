@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>What's On in Sydney — Next 7 Days</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link rel="preconnect" href="https://images.unsplash.com"/>
+</head>
+<body>
+
+<header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <h1>What's On in Sydney</h1>
+        <p class="tagline">Events, weather and things to do across the next 7 days.</p>
+        <p class="meta">
+            <span th:text="${totalEvents}">0</span> events found ·
+            Updated <span th:text="${#temporals.format(today, 'EEEE d MMMM yyyy')}">today</span>
+        </p>
+    </div>
+</header>
+
+<nav class="day-nav">
+    <a th:each="d : ${days}"
+       th:href="'#day-' + ${d.date}"
+       th:classappend="${d.today} ? 'today' : ''"
+       class="day-pill">
+        <span class="pill-day" th:text="${d.dayName.substring(0, 3)}">Mon</span>
+        <span class="pill-date" th:text="${d.dateLabel}">1 Jan</span>
+        <span class="pill-temp" th:if="${d.weather != null}">
+            <span th:text="${d.weather.icon}">☀</span>
+            <span th:text="${d.weather.maxTempRounded} + '°'">22°</span>
+        </span>
+    </a>
+</nav>
+
+<main>
+    <section th:each="d : ${days}" class="day-section" th:id="'day-' + ${d.date}">
+        <div class="day-header">
+            <div class="day-title">
+                <h2>
+                    <span th:text="${d.dayName}">Monday</span>
+                    <span class="badge" th:if="${d.today}">Today</span>
+                </h2>
+                <p class="day-date" th:text="${#temporals.format(d.date, 'd MMMM yyyy')}">1 January</p>
+            </div>
+
+            <div class="weather-card" th:if="${d.weather != null}">
+                <div class="w-icon" th:text="${d.weather.icon}">☀</div>
+                <div class="w-main">
+                    <div class="w-temp">
+                        <span class="hi" th:text="${d.weather.maxTempRounded} + '°'">22°</span>
+                        <span class="lo" th:text="${d.weather.minTempRounded} + '°'">14°</span>
+                    </div>
+                    <div class="w-desc" th:text="${d.weather.description}">Sunny</div>
+                </div>
+                <div class="w-meta">
+                    <span title="Chance of rain">💧 <span th:text="${d.weather.precipitationProbability} + '%'">10%</span></span>
+                    <span title="Max wind">🌬️ <span th:text="${#numbers.formatDecimal(d.weather.windKph, 1, 0)} + ' km/h'">12 km/h</span></span>
+                    <span title="UV index">☼ UV <span th:text="${#numbers.formatDecimal(d.weather.uvIndex, 1, 0)}">5</span></span>
+                    <span title="Sunrise / sunset">🌅 <span th:text="${d.weather.sunrise}">06:30</span> · 🌇 <span th:text="${d.weather.sunset}">17:30</span></span>
+                </div>
+            </div>
+            <div class="weather-card weather-missing" th:if="${d.weather == null}">
+                <div class="w-desc">Weather forecast unavailable</div>
+            </div>
+        </div>
+
+        <div class="events-grid" th:if="${!d.events.isEmpty()}">
+            <article class="event-card" th:each="ev : ${d.events}">
+                <a class="event-img-link"
+                   th:href="${ev.url} ?: '#'"
+                   target="_blank" rel="noopener">
+                    <div class="event-img"
+                         th:if="${ev.imageUrl != null}"
+                         th:style="'background-image: url(' + ${ev.imageUrl} + ')'">
+                    </div>
+                    <div class="event-img placeholder" th:if="${ev.imageUrl == null}">
+                        <span>🎟️</span>
+                    </div>
+                    <span class="event-category" th:if="${ev.category}" th:text="${ev.category}">Music</span>
+                </a>
+                <div class="event-body">
+                    <h3 th:text="${ev.title}">Event title</h3>
+                    <p class="event-venue" th:if="${ev.venue}" th:text="${ev.venue}">Venue</p>
+                    <p class="event-desc" th:if="${ev.description}" th:text="${ev.description}">Description</p>
+                    <div class="event-footer">
+                        <span class="event-source" th:text="${ev.source}">Source</span>
+                        <a th:if="${ev.url}" th:href="${ev.url}" target="_blank" rel="noopener" class="event-link">
+                            More info →
+                        </a>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <p class="empty" th:if="${d.events.isEmpty()}">No events found for this day.</p>
+    </section>
+</main>
+
+<footer>
+    <p>
+        Weather by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>.
+        Event sources include City of Sydney, Destination NSW, Sydney Opera House and curated highlights.
+    </p>
+    <p class="small">Data refreshes hourly. Coordinates: Sydney (-33.8688, 151.2093).</p>
+</footer>
+
+</body>
+</html>

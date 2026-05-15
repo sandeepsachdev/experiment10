@@ -1,0 +1,31 @@
+server:
+  port: ${PORT:8080}
+  forward-headers-strategy: framework
+  compression:
+    enabled: true
+    mime-types: text/html,text/css,application/javascript,application/json
+
+spring:
+  application:
+    name: sydney-events
+  thymeleaf:
+    cache: true
+  cache:
+    type: caffeine
+    cache-names: events,weather
+    caffeine:
+      spec: maximumSize=64,expireAfterWrite=1h
+
+app:
+  scrape:
+    user-agent: "Mozilla/5.0 (compatible; SydneyEventsBot/1.0; +https://example.com)"
+    timeout-ms: 8000
+  weather:
+    latitude: -33.8688
+    longitude: 151.2093
+    timezone: Australia/Sydney
+
+logging:
+  level:
+    root: INFO
+    com.sydneyevents: INFO

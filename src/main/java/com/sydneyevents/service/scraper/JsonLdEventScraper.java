@@ -1,0 +1,151 @@
+package com.sydneyevents.service.scraper;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sydneyevents.model.Event;
+import com.sydneyevents.service.EventScraper;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Generic scraper that reads JSON-LD schema.org/Event blocks from
+ * Sydney event listing pages. Many CMS-driven sites publish this.
+ */
+@Component
+public class JsonLdEventScraper implements EventScraper {
+    private static final Logger log = LoggerFactory.getLogger(JsonLdEventScraper.class);
+
+    private static final List<String> URLS = List.of(
+            "https://www.sydney.com/events",
+            "https://www.sydneyoperahouse.com/whats-on.html"
+    );
+
+    private final ObjectMapper mapper = new ObjectMapper();
+
+    @Value("${app.scrape.user-agent}")
+    private String userAgent;
+
+    @Value("${app.scrape.timeout-ms}")
+    private int timeoutMs;
+
+    @Override
+    public String sourceName() {
+        return "Sydney JSON-LD";
+    }
+
+    @Override
+    public List<Event> scrape() {
+        List<Event> all = new ArrayList<>();
+        for (String url : URLS) {
+            try {
+                Document doc = Jsoup.connect(url)
+                        .userAgent(userAgent)
+                        .timeout(timeoutMs)
+                        .ignoreContentType(true)
+                        .get();
+                for (Element script : doc.select("script[type=application/ld+json]")) {
+                    parseJsonLd(script.data(), url, all);
+                }
+            } catch (Exception e) {
+                log.warn("JsonLd scrape failed for {}: {}", url, e.getMessage());
+            }
+        }
+        log.info("JsonLdEventScraper found {} events", all.size());
+        return all;
+    }
+
+    private void parseJsonLd(String json, String pageUrl, List<Event> sink) {
+        try {
+            JsonNode root = mapper.readTree(json);
+            collect(root, pageUrl, sink);
+        } catch (Exception ignored) { }
+    }
+
+    private void collect(JsonNode node, String pageUrl, List<Event> sink) {
+        if (node == null) return;
+        if (node.isArray()) {
+            node.forEach(n -> collect(n, pageUrl, sink));
+            return;
+        }
+        if (!node.isObject()) return;
+
+        // @graph wrapper
+        if (node.has("@graph")) {
+            collect(node.get("@graph"), pageUrl, sink);
+        }
+
+        String type = node.path("@type").asText("");
+        if (type.equalsIgnoreCase("Event") || type.toLowerCase().contains("event")) {
+            Event e = toEvent(node, pageUrl);
+            if (e != null) sink.add(e);
+        }
+    }
+
+    private Event toEvent(JsonNode n, String pageUrl) {
+        String title = textOrNull(n, "name");
+        if (title == null) return null;
+
+        Event e = new Event();
+        e.setTitle(title);
+        e.setDescription(textOrNull(n, "description"));
+        e.setUrl(firstNonBlank(textOrNull(n, "url"), pageUrl));
+
+        // image: string or object or array
+        JsonNode img = n.path("image");
+        if (img.isTextual()) {
+            e.setImageUrl(img.asText());
+        } else if (img.isArray() && img.size() > 0) {
+            JsonNode first = img.get(0);
+            e.setImageUrl(first.isTextual() ? first.asText() : first.path("url").asText(null));
+        } else if (img.isObject()) {
+            e.setImageUrl(img.path("url").asText(null));
+        }
+
+        e.setStartDate(parseDate(textOrNull(n, "startDate")));
+        e.setEndDate(parseDate(textOrNull(n, "endDate")));
+
+        JsonNode location = n.path("location");
+        if (location.isObject()) {
+            e.setVenue(location.path("name").asText(null));
+        } else if (location.isTextual()) {
+            e.setVenue(location.asText());
+        }
+
+        e.setSource(pageUrl.contains("operahouse") ? "Sydney Opera House" : "Destination NSW");
+        e.setCategory("Featured");
+        return e;
+    }
+
+    private String textOrNull(JsonNode n, String field) {
+        JsonNode v = n.path(field);
+        return v.isMissingNode() || v.isNull() || !v.isTextual() ? null : v.asText();
+    }
+
+    private String firstNonBlank(String a, String b) {
+        return a != null && !a.isBlank() ? a : b;
+    }
+
+    private LocalDate parseDate(String s) {
+        if (s == null || s.isBlank()) return null;
+        try {
+            return LocalDate.parse(s.substring(0, Math.min(10, s.length())));
+        } catch (DateTimeParseException e) {
+            try {
+                return OffsetDateTime.parse(s).toLocalDate();
+            } catch (Exception e2) {
+                return null;
+            }
+        }
+    }
+}
