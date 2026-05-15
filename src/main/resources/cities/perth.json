@@ -1,0 +1,84 @@
+{
+  "anchors": [
+    {
+      "title": "Kings Park & Botanic Garden",
+      "description": "One of the world's largest inner-city parks at 400 hectares. The DNA Tower, Lotterywest Federation Walkway and the State War Memorial all have sweeping views over the Swan River and the city skyline.",
+      "image": "https://images.unsplash.com/photo-1573935448851-fa5b8b03cd44?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.bgpa.wa.gov.au/kings-park",
+      "venue": "Fraser Avenue, Kings Park",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Cottesloe Beach",
+      "description": "Perth's most loved beach — a wide arc of white sand with a heritage pavilion, palm-lined Marine Parade and the legendary Indiana Tea House. Famous for its spectacular sunset over the Indian Ocean.",
+      "image": "https://images.unsplash.com/photo-1494791368093-85217fbbf8de?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.cottesloe.wa.gov.au/",
+      "venue": "Marine Parade, Cottesloe",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Rottnest Island — Day Trip with Quokkas",
+      "description": "Half-hour ferry from Fremantle to the car-free island home of the famously happy quokka. Pedal a hire bike around the 22km perimeter, snorkel pristine bays and learn the island's complex history.",
+      "image": "https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.rottnestisland.com/",
+      "venue": "Rottnest Island, Indian Ocean",
+      "category": "Adventure"
+    },
+    {
+      "title": "Elizabeth Quay & The Bell Tower",
+      "description": "Perth's revitalised inner-harbour precinct with a 2.6km riverside promenade, water playgrounds and BHP Water Park. The Bell Tower houses one of the world's largest sets of change-ringing bells.",
+      "image": "https://images.unsplash.com/photo-1571983823232-07c00f4b3c80?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://mra.wa.gov.au/projects-and-places/elizabeth-quay",
+      "venue": "Elizabeth Quay, Perth",
+      "category": "Family"
+    },
+    {
+      "title": "Perth Mint Gold Pour",
+      "description": "Watch a $400,000 gold bar poured live at the historic Perth Mint, in continuous operation since 1899. The world's largest coin (a 1-tonne gold piece) is on permanent display.",
+      "image": "https://images.unsplash.com/photo-1518998053901-5348d3961a04?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.perthmint.com/",
+      "venue": "310 Hay Street, East Perth",
+      "category": "Culture"
+    },
+    {
+      "title": "Swan Valley Wine Region",
+      "description": "Western Australia's oldest wine region is just 25 minutes from the CBD. 40+ cellar doors plus craft breweries, distilleries and farm-gate produce along the 32km Swan Valley Food and Wine Trail.",
+      "image": "https://images.unsplash.com/photo-1601981258639-08d8a8c46e7b?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.swanvalley.com.au/",
+      "venue": "Swan Valley, north-east Perth",
+      "category": "Food & Drink"
+    }
+  ],
+  "recurring": {
+    "FRIDAY": [
+      {
+        "title": "Fremantle Markets",
+        "description": "Heritage-listed Fremantle Markets, open Friday, Saturday and Sunday since 1897. 150 stalls of fresh produce, fashion, crafts and Asian street food. Live buskers across the cappuccino strip.",
+        "image": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.fremantlemarkets.com.au/",
+        "venue": "Cnr South Tce & Henderson Street, Fremantle",
+        "category": "Markets"
+      }
+    ],
+    "SATURDAY": [
+      {
+        "title": "Fremantle Markets",
+        "description": "Fremantle's iconic weekend market — produce hall + makers' wing + street-food courtyards. Open Saturday and Sunday 8am-6pm.",
+        "image": "https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.fremantlemarkets.com.au/",
+        "venue": "Cnr South Tce & Henderson Street, Fremantle",
+        "category": "Markets"
+      }
+    ],
+    "SUNDAY": [
+      {
+        "title": "Sunday Sessions at Little Creatures",
+        "description": "Live music every Sunday from 2pm on the lawn outside the Little Creatures Brewery in Fremantle. Wood-fired pizza, hand-pulled ales and a view across the fishing-boat harbour.",
+        "image": "https://images.unsplash.com/photo-1559925393-8be0ec4767c8?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://littlecreatures.com.au/",
+        "venue": "40 Mews Road, Fremantle",
+        "category": "Music"
+      }
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "anchors": [
+    {
+      "title": "Cataract Gorge Reserve",
+      "description": "Wilderness reserve a 10-minute walk from the CBD. Cross the suspension bridge, ride the world's longest single-span chairlift across the gorge, and swim in the heritage First Basin pool.",
+      "image": "https://images.unsplash.com/photo-1571406761758-9a3eed5338ef?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.launcestoncataractgorge.com.au/",
+      "venue": "Cataract Walk, West Launceston",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Queen Victoria Museum & Art Gallery",
+      "description": "Australia's largest regional museum across two sites. The Royal Park building covers art and the city's colonial history; the Inveresk Tramway Workshops focus on natural science and a planetarium.",
+      "image": "https://images.unsplash.com/photo-1577720580479-7d839d829c73?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.qvmag.tas.gov.au/",
+      "venue": "2 Invermay Road, Inveresk",
+      "category": "Culture"
+    },
+    {
+      "title": "Tamar Island Wetlands",
+      "description": "Free 5km return boardwalk through reedbeds and wetlands on the Tamar River. Spot platypus at dusk and 70+ bird species year-round. Visitor Centre with rangers on weekends.",
+      "image": "https://images.unsplash.com/photo-1597007030739-6d2e7172ee6a?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://parks.tas.gov.au/explore-our-parks/tamar-island-wetlands",
+      "venue": "West Tamar Highway, Riverside",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Tamar Valley Wine Route",
+      "description": "30 cellar doors along the Tamar River north of the city — including Josef Chromy, Holm Oak and Bay of Fires. Cool-climate Pinot Noir, sparkling wine and Riesling are the regional specialties.",
+      "image": "https://images.unsplash.com/photo-1559925393-8be0ec4767c8?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.tamarvalleywineroute.com.au/",
+      "venue": "Tamar Valley, TAS",
+      "category": "Food & Drink"
+    },
+    {
+      "title": "City Park & The Monkeys",
+      "description": "Heritage Victorian gardens in the centre of town, home to the famous Macaque Monkey Enclosure — a 1980 gift from Launceston's sister city of Ikeda, Japan. Free.",
+      "image": "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.launceston.tas.gov.au/",
+      "venue": "Tamar Street, Launceston",
+      "category": "Family"
+    }
+  ],
+  "recurring": {
+    "SATURDAY": [
+      {
+        "title": "Harvest Launceston Community Farmers Market",
+        "description": "Every Saturday morning on Cimitiere Street. 60+ Tasmanian growers and producers — no resellers. 8:30am-12:30pm year-round.",
+        "image": "https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://harvestmarket.org.au/",
+        "venue": "Cimitiere Street car park, Launceston",
+        "category": "Markets"
+      }
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "anchors": [
+    {
+      "title": "The Strand",
+      "description": "2.2km waterfront promenade with stinger-net swimming, water park, rock pool and the iconic strangler-fig boardwalk. Free electric BBQs, playgrounds and a beachside dining strip.",
+      "image": "https://images.unsplash.com/photo-1605125927676-c33b88aaf2c1?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.townsville.qld.gov.au/",
+      "venue": "The Strand, Townsville",
+      "category": "Family"
+    },
+    {
+      "title": "Castle Hill Lookout",
+      "description": "286-metre pink granite monolith at the centre of the city. Drive to the summit or walk the 'goat track' from Stanton Terrace for sunrise views across Magnetic Island.",
+      "image": "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.townsville.qld.gov.au/",
+      "venue": "Castle Hill, Townsville",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Reef HQ Aquarium",
+      "description": "The world's largest living coral reef aquarium, run by the Great Barrier Reef Marine Park Authority. Walk-through tunnel, daily shark feeding and a turtle hospital you can tour.",
+      "image": "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.reefhq.com.au/",
+      "venue": "2-68 Flinders Street, Townsville",
+      "category": "Family"
+    },
+    {
+      "title": "Magnetic Island Day Trip",
+      "description": "20-minute SeaLink ferry to the koala-rich Maggie. Hire a topless Mini-Moke, snorkel Geoffrey Bay's WWII wrecks, and walk the Forts Track to spot wild koalas in the wild.",
+      "image": "https://images.unsplash.com/photo-1494791368093-85217fbbf8de?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.townsvillenorthqueensland.com.au/destinations/magnetic-island/",
+      "venue": "Magnetic Island Ferry Terminal",
+      "category": "Adventure"
+    },
+    {
+      "title": "Museum of Tropical Queensland",
+      "description": "Maritime archaeology, Great Barrier Reef science and tropical natural history — built around the 1791 HMS Pandora shipwreck. Family-friendly with hands-on galleries.",
+      "image": "https://images.unsplash.com/photo-1577720580479-7d839d829c73?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.mtq.qm.qld.gov.au/",
+      "venue": "70-102 Flinders Street, Townsville",
+      "category": "Culture"
+    }
+  ],
+  "recurring": {
+    "SUNDAY": [
+      {
+        "title": "Cotters Markets",
+        "description": "Townsville's biggest weekly market on Flinders Street Mall. 200+ stalls of fresh produce, tropical fruit, art and live music. Every Sunday 8:30am-1pm.",
+        "image": "https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://townsvilleruralliving.com.au/",
+        "venue": "Flinders Street Mall, Townsville",
+        "category": "Markets"
+      }
+    ]
+  }
+}

@@ -2,6 +2,7 @@ package com.sydneyevents.service.scraper;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sydneyevents.model.City;
 import com.sydneyevents.model.Event;
 import com.sydneyevents.service.EventScraper;
 import org.jsoup.Jsoup;
@@ -18,15 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Scrapes the public Eventbrite Sydney listings page.
- * Eventbrite ships full schema.org/Event JSON-LD on every listing card,
- * so we parse that rather than fragile HTML.
+ * Scrapes Eventbrite's public city listings page.
+ * Eventbrite ships schema.org/Event JSON-LD on every card.
  */
 @Component
 public class EventbriteScraper implements EventScraper {
     private static final Logger log = LoggerFactory.getLogger(EventbriteScraper.class);
-
-    private static final String URL = "https://www.eventbrite.com.au/d/australia--sydney/events--this-week/";
 
     private final ObjectMapper mapper = new ObjectMapper();
 
@@ -38,15 +36,19 @@ public class EventbriteScraper implements EventScraper {
 
     @Override
     public String sourceName() {
-        return "Eventbrite Sydney";
+        return "Eventbrite";
     }
 
     @Override
-    public List<Event> scrape() {
+    public List<Event> scrape(City city) {
+        String url = "https://www.eventbrite.com.au/d/australia--"
+                + city.slug() + "/events--this-week/";
         List<Event> events = new ArrayList<>();
         try {
-            Document doc = Jsoup.connect(URL)
+            log.info("Eventbrite request: GET {}", url);
+            Document doc = Jsoup.connect(url)
                     .userAgent(userAgent)
+                    .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
                     .header("Accept-Language", "en-AU,en;q=0.9")
                     .timeout(timeoutMs)
                     .get();
@@ -54,9 +56,9 @@ public class EventbriteScraper implements EventScraper {
             for (Element script : doc.select("script[type=application/ld+json]")) {
                 collect(mapper.readTree(script.data()), events);
             }
-            log.info("EventbriteScraper found {} events", events.size());
+            log.info("Eventbrite response: {} events for {}", events.size(), city.slug());
         } catch (Exception e) {
-            log.warn("EventbriteScraper failed: {}", e.getMessage());
+            log.warn("EventbriteScraper failed for {}: {}", city.slug(), e.getMessage());
         }
         return events;
     }

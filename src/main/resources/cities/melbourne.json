@@ -1,0 +1,120 @@
+{
+  "anchors": [
+    {
+      "title": "Federation Square & ACMI",
+      "description": "Melbourne's civic plaza on the north bank of the Yarra hosts ACMI — the Australian Centre for the Moving Image — with free access to its world-renowned cinema and screen-culture exhibition. Major events, food trucks and big-screen sports almost every weekend.",
+      "image": "https://images.unsplash.com/photo-1545044846-351ba102b6d5?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://fedsquare.com/",
+      "venue": "Cnr Swanston & Flinders Streets, Melbourne",
+      "category": "Culture"
+    },
+    {
+      "title": "National Gallery of Victoria (NGV International)",
+      "description": "Australia's oldest and most-visited public art gallery, free to enter. Iconic stained-glass Great Hall ceiling, blockbuster international exhibitions and the country's deepest collection of European art.",
+      "image": "https://images.unsplash.com/photo-1518998053901-5348d3961a04?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.ngv.vic.gov.au/",
+      "venue": "180 St Kilda Road, Melbourne",
+      "category": "Culture"
+    },
+    {
+      "title": "Hosier Lane Street Art",
+      "description": "Melbourne's most photographed laneway — a constantly-evolving outdoor gallery of large-scale street art. Bring a camera; the murals change weekly. Free, walkable from Federation Square.",
+      "image": "https://images.unsplash.com/photo-1531971589569-0d9370cbe1e5?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://whatson.melbourne.vic.gov.au/",
+      "venue": "Hosier Lane, Melbourne",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Royal Botanic Gardens Victoria",
+      "description": "38 hectares of riverside gardens beside the Shrine of Remembrance. The Aboriginal Heritage Walk, the Tan jogging track and the Children's Garden. Free entry every day of the year.",
+      "image": "https://images.unsplash.com/photo-1597007030739-6d2e7172ee6a?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.rbg.vic.gov.au/",
+      "venue": "Birdwood Avenue, South Yarra",
+      "category": "Outdoors"
+    },
+    {
+      "title": "St Kilda Beach & Pier",
+      "description": "Iconic palm-lined bay beach with the historic Luna Park amusements next door. Walk to the end of the pier at dusk to spot the little penguin colony that nests in the breakwater rocks.",
+      "image": "https://images.unsplash.com/photo-1494791368093-85217fbbf8de?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.visitmelbourne.com/regions/melbourne/destinations/st-kilda",
+      "venue": "St Kilda Foreshore",
+      "category": "Outdoors"
+    },
+    {
+      "title": "MCG Tour — Melbourne Cricket Ground",
+      "description": "Behind-the-scenes tour of the 100,000-seat 'G — the spiritual home of Australian cricket and AFL. Walk on the ground itself, sit in the players' rooms and visit the National Sports Museum.",
+      "image": "https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.mcg.org.au/",
+      "venue": "Brunton Avenue, Richmond",
+      "category": "Sport"
+    },
+    {
+      "title": "Yarra River Cruise",
+      "description": "One-hour scenic cruise along the Yarra from Southbank past the sports precinct and into the river bends near the Botanic Gardens. Boats depart Berths 1-3 at Southgate every 30 minutes.",
+      "image": "https://images.unsplash.com/photo-1576487248805-cf45f6bcc67f?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.melbourneskydeck.com.au/",
+      "venue": "Southgate Promenade, Melbourne",
+      "category": "Family"
+    }
+  ],
+  "recurring": {
+    "TUESDAY": [
+      {
+        "title": "Queen Vic Market — Day Market",
+        "description": "150-year-old open-air market — the largest in the Southern Hemisphere. 600 traders selling fresh produce, deli imports, clothing and souvenirs. Open Tuesday, Thursday, Friday, Saturday and Sunday.",
+        "image": "https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://qvm.com.au/",
+        "venue": "Queen Street, Melbourne",
+        "category": "Markets"
+      }
+    ],
+    "WEDNESDAY": [
+      {
+        "title": "NGV Friday Nights / Wednesday Lates",
+        "description": "Late-night exhibition opening with live performances, talks and pop-up bars throughout the NGV. Check the NGV calendar — Wednesdays during major summer shows, Fridays year-round.",
+        "image": "https://images.unsplash.com/photo-1577720580479-7d839d829c73?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.ngv.vic.gov.au/whats-on/",
+        "venue": "180 St Kilda Road, Melbourne",
+        "category": "Culture"
+      }
+    ],
+    "FRIDAY": [
+      {
+        "title": "Rooftop Cinema",
+        "description": "Open-air cinema on top of Curtin House on Swanston Street. New releases and cult classics, with deck chairs, a bar and a 1970s-style rooftop pool. Sessions every night in summer, weather permitting.",
+        "image": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://rooftopcinema.com.au/",
+        "venue": "252 Swanston Street, Melbourne",
+        "category": "Film"
+      }
+    ],
+    "SATURDAY": [
+      {
+        "title": "Queen Victoria Market — Saturday",
+        "description": "The biggest day at QVM. Add a coffee at the Market Lane stand and a doughnut from American Doughnut Kitchen to your produce run.",
+        "image": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://qvm.com.au/",
+        "venue": "Queen Street, Melbourne",
+        "category": "Markets"
+      },
+      {
+        "title": "Saturday Football at the 'G",
+        "description": "AFL season runs March to September: grab a ticket on the day for an MCG match. In the off-season the venue hosts cricket Tests and BBL twenty20s.",
+        "image": "https://images.unsplash.com/photo-1601381718415-d3b39c61a99c?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.afl.com.au/",
+        "venue": "Melbourne Cricket Ground",
+        "category": "Sport"
+      }
+    ],
+    "SUNDAY": [
+      {
+        "title": "Camberwell Sunday Market",
+        "description": "Melbourne's largest Sunday market — 370+ stalls of pre-loved fashion, vintage and bric-à-brac. 6:30am-12:30pm every Sunday in Station Street car park. Coffee carts on site.",
+        "image": "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://sundaymarket.com.au/",
+        "venue": "Station Street, Camberwell",
+        "category": "Markets"
+      }
+    ]
+  }
+}

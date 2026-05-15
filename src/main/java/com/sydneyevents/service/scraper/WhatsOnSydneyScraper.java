@@ -1,5 +1,6 @@
 package com.sydneyevents.service.scraper;
 
+import com.sydneyevents.model.City;
 import com.sydneyevents.model.Event;
 import com.sydneyevents.service.EventScraper;
 import org.jsoup.Jsoup;
@@ -18,8 +19,8 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Scrapes City of Sydney's "What's On" listing.
- * Site: https://whatson.cityofsydney.nsw.gov.au/
+ * Scrapes the City of Sydney's "What's On" HTML listing.
+ * Sydney-only — other councils have their own (different) sites.
  */
 @Component
 public class WhatsOnSydneyScraper implements EventScraper {
@@ -38,9 +39,15 @@ public class WhatsOnSydneyScraper implements EventScraper {
     }
 
     @Override
-    public List<Event> scrape() {
+    public boolean supports(City city) {
+        return "sydney".equals(city.slug());
+    }
+
+    @Override
+    public List<Event> scrape(City city) {
         List<Event> events = new ArrayList<>();
         try {
+            log.info("WhatsOnSydney request: GET {}", URL);
             Document doc = Jsoup.connect(URL)
                     .userAgent(userAgent)
                     .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
@@ -56,7 +63,7 @@ public class WhatsOnSydneyScraper implements EventScraper {
                 }
                 if (events.size() >= 40) break;
             }
-            log.info("WhatsOnSydneyScraper found {} events", events.size());
+            log.info("WhatsOnSydney response: {} events", events.size());
         } catch (Exception e) {
             log.warn("WhatsOnSydneyScraper failed: {}", e.getMessage());
         }

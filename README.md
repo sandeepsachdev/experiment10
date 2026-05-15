@@ -112,3 +112,36 @@ identical. Fixes:
 > Add prompt to generate this app to the readme. Add future prompts as well
 
 Added this section.
+
+### 4. Multi-city support
+
+> Let the user pick from any major city in Australia including large regional centres
+
+- New `City` record + `CityRegistry` with all 8 capital cities and 10 major
+  regional centres (Gold Coast, Newcastle, Wollongong, Geelong, Sunshine Coast,
+  Cairns, Townsville, Ballarat, Bendigo, Launceston).
+- Curated event content moved to per-city JSON files under
+  `src/main/resources/cities/<slug>.json`, loaded by `CuratedDataLoader`.
+- All scrapers and services are now city-parameterised; Sydney-specific
+  scrapers declare `supports(city)` and only run for `slug=sydney`. Eventbrite
+  scraper builds its URL from the city slug.
+- `WeatherService` takes coordinates and timezone from the requested city;
+  Caffeine caches are keyed on `city.slug()`.
+- New `?city=<slug>` query param, a hero image and dropdown picker per city,
+  and a defensive fallback to Sydney when an unknown slug is supplied.
+
+### 5. Log every outgoing API call
+
+> Turn on logging of all outgoing requests and responses to apis
+
+- New `LoggingHttpClient` wraps the shared `java.net.http.HttpClient`. Every
+  `send`/`sendAsync` logs `→ METHOD URL` for the request and
+  `← METHOD URL → HTTP <status> (<bytes>, <ms> ms)` for the response.
+- Jsoup-based scrapers log their own request URLs and result sizes via
+  the `com.sydneyevents.http` logger.
+- Log level configurable in `application.yml`:
+  ```yaml
+  logging:
+    level:
+      com.sydneyevents.http: DEBUG  # to also dump request headers + response body preview
+  ```

@@ -1,5 +1,6 @@
 package com.sydneyevents.service;
 
+import com.sydneyevents.model.City;
 import com.sydneyevents.model.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +8,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -17,7 +17,6 @@ import java.util.Set;
 @Service
 public class EventService {
     private static final Logger log = LoggerFactory.getLogger(EventService.class);
-    private static final ZoneId SYDNEY = ZoneId.of("Australia/Sydney");
 
     private final List<EventScraper> scrapers;
 
@@ -25,17 +24,18 @@ public class EventService {
         this.scrapers = scrapers;
     }
 
-    @Cacheable("events")
-    public List<Event> getUpcomingEvents() {
-        LocalDate today = LocalDate.now(SYDNEY);
+    @Cacheable(value = "events", key = "#city.slug()")
+    public List<Event> getUpcomingEvents(City city) {
+        LocalDate today = CuratedDataLoader.today(city);
         LocalDate end = today.plusDays(7);
 
         List<Event> all = new ArrayList<>();
         Set<String> seenTitles = new HashSet<>();
 
         for (EventScraper scraper : scrapers) {
+            if (!scraper.supports(city)) continue;
             try {
-                List<Event> found = scraper.scrape();
+                List<Event> found = scraper.scrape(city);
                 for (Event e : found) {
                     if (e.getTitle() == null) continue;
                     String key = e.getTitle().trim().toLowerCase();
@@ -44,12 +44,11 @@ public class EventService {
                     }
                 }
             } catch (Exception ex) {
-                log.warn("Scraper {} failed: {}", scraper.sourceName(), ex.getMessage());
+                log.warn("Scraper {} failed for {}: {}",
+                        scraper.sourceName(), city.slug(), ex.getMessage());
             }
         }
 
-        // Keep events that overlap the 7-day window. Events without a date
-        // are treated as "ongoing" and shown every day.
         List<Event> filtered = new ArrayList<>();
         for (Event e : all) {
             if (e.getStartDate() == null) {
@@ -69,14 +68,8 @@ public class EventService {
                 .comparing(Event::getStartDate, Comparator.nullsLast(Comparator.naturalOrder()))
                 .thenComparing(Event::getTitle, Comparator.nullsLast(Comparator.naturalOrder())));
 
-        log.info("Aggregated {} unique events for the next 7 days from {} sources",
-                filtered.size(), scrapers.size());
+        log.info("Aggregated {} unique events for {} (next 7 days) from {} sources",
+                filtered.size(), city.name(), scrapers.size());
         return filtered;
-    }
-
-    public List<Event> getEventsForDate(LocalDate date) {
-        return getUpcomingEvents().stream()
-                .filter(e -> e.occursOn(date))
-                .toList();
     }
 }

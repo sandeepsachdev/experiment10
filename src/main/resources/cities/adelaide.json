@@ -1,0 +1,94 @@
+{
+  "anchors": [
+    {
+      "title": "Adelaide Central Market",
+      "description": "One of the largest undercover fresh-produce markets in the Southern Hemisphere. 70+ traders selling artisan cheese, charcuterie, baked goods, smallgoods and coffee. Open Tuesday to Saturday.",
+      "image": "https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://adelaidecentralmarket.com.au/",
+      "venue": "44-60 Gouger Street, Adelaide",
+      "category": "Food & Drink"
+    },
+    {
+      "title": "Adelaide Botanic Garden",
+      "description": "Free historic gardens dating from 1855, with the Bicentennial Conservatory, Amazon Waterlily Pavilion and the Museum of Economic Botany. Daily free guided walks at 10:30am.",
+      "image": "https://images.unsplash.com/photo-1597007030739-6d2e7172ee6a?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.botanicgardens.sa.gov.au/",
+      "venue": "North Terrace, Adelaide",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Adelaide Zoo — Giant Pandas",
+      "description": "Australia's second-oldest zoo and the only zoo in the southern hemisphere with giant pandas. 2,500 animals across 8 hectares in the centre of the city, beside the Botanic Gardens.",
+      "image": "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.adelaidezoo.com.au/",
+      "venue": "Frome Road, Adelaide",
+      "category": "Family"
+    },
+    {
+      "title": "Adelaide Oval RoofClimb",
+      "description": "50-metre climb to the top of the Adelaide Oval's heritage roof, with 360° views across the city, parklands and St Peter's Cathedral. Day and twilight climbs run daily.",
+      "image": "https://images.unsplash.com/photo-1571983823232-07c00f4b3c80?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.roofclimb.com.au/",
+      "venue": "Adelaide Oval, War Memorial Drive",
+      "category": "Adventure"
+    },
+    {
+      "title": "Art Gallery of South Australia",
+      "description": "Free, neoclassical gallery on North Terrace with 45,000 works — Australia's second-oldest public collection. Strong holdings in Aboriginal art, plus rotating international exhibitions.",
+      "image": "https://images.unsplash.com/photo-1577720580479-7d839d829c73?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.agsa.sa.gov.au/",
+      "venue": "North Terrace, Adelaide",
+      "category": "Culture"
+    },
+    {
+      "title": "Glenelg Beach by Tram",
+      "description": "Catch the historic tram from the city centre to Glenelg — Adelaide's classic seaside suburb. Long white-sand beach, Moseley Square fountains and a heritage jetty for sunset photos.",
+      "image": "https://images.unsplash.com/photo-1551406483-3731d1997540?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://glenelgsa.com.au/",
+      "venue": "Moseley Square, Glenelg",
+      "category": "Outdoors"
+    }
+  ],
+  "recurring": {
+    "TUESDAY": [
+      {
+        "title": "Central Market — Tuesday Lunch",
+        "description": "The market kicks off the week with full produce floors and breakfast at Lucia's Pizza Bar (open since 1957) or coffee from Lucia's espresso counter.",
+        "image": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://adelaidecentralmarket.com.au/",
+        "venue": "Gouger Street, Adelaide",
+        "category": "Food & Drink"
+      }
+    ],
+    "FRIDAY": [
+      {
+        "title": "Adelaide Central Market Night Market",
+        "description": "On the first Friday of each month the Central Market stays open into the evening with live music, hot food and free tastings across the produce floor.",
+        "image": "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://adelaidecentralmarket.com.au/",
+        "venue": "Gouger Street, Adelaide",
+        "category": "Food & Drink"
+      }
+    ],
+    "SATURDAY": [
+      {
+        "title": "Adelaide Showground Farmers Market",
+        "description": "Every Sunday 9am-1pm at the Wayville Showground — 60+ South Australian growers, makers and butchers. Free entry; on-site coffee and breakfast vans.",
+        "image": "https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.adelaideshowground.com.au/",
+        "venue": "Wayville Showground, Adelaide",
+        "category": "Markets"
+      }
+    ],
+    "SUNDAY": [
+      {
+        "title": "Gilles Street Market",
+        "description": "Third Sunday of every month — Adelaide's biggest street-style market with vintage fashion, plants, handmade design and 30+ food trucks. 10am-4pm at Gilles Street Primary.",
+        "image": "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.gillesstreetmarket.com.au/",
+        "venue": "Gilles Street Primary School, Adelaide",
+        "category": "Markets"
+      }
+    ]
+  }
+}

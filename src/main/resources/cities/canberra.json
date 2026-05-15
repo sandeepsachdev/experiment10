@@ -1,0 +1,74 @@
+{
+  "anchors": [
+    {
+      "title": "Australian War Memorial",
+      "description": "Australia's national shrine and one of the world's great military museums. Free entry. Plan to be there for the Last Post ceremony at 4:55pm — a daily commemoration honouring a different fallen Australian.",
+      "image": "https://images.unsplash.com/photo-1602166242292-91d0b6f24ce6?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.awm.gov.au/",
+      "venue": "Treloar Crescent, Campbell",
+      "category": "Culture"
+    },
+    {
+      "title": "National Gallery of Australia",
+      "description": "Free entry to Australia's national collection — 155,000 works including Aboriginal Memorial poles, Jackson Pollock's Blue Poles, and major works by Sidney Nolan, Margaret Olley and Rover Thomas.",
+      "image": "https://images.unsplash.com/photo-1577720580479-7d839d829c73?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://nga.gov.au/",
+      "venue": "Parkes Place, Parkes",
+      "category": "Culture"
+    },
+    {
+      "title": "Parliament House — Free Tour",
+      "description": "Free 30-minute guided tour of Australia's national legislature, beneath the iconic 81-metre flagpole. Walk on the roof for one of the best views in Canberra. Open every day.",
+      "image": "https://images.unsplash.com/photo-1518998053901-5348d3961a04?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.aph.gov.au/Visit_Parliament/",
+      "venue": "Parliament Drive, Capital Hill",
+      "category": "Landmark"
+    },
+    {
+      "title": "National Museum of Australia",
+      "description": "Free, family-friendly museum on the shores of Lake Burley Griffin telling 65,000 years of Australian history. Don't miss the iconic Holden Prototype, Phar Lap's heart and the K'gari (Fraser Island) galleries.",
+      "image": "https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.nma.gov.au/",
+      "venue": "Lawson Crescent, Acton Peninsula",
+      "category": "Culture"
+    },
+    {
+      "title": "Lake Burley Griffin Loop",
+      "description": "28km cycling and walking circuit around the lake at the centre of Burley Griffin's city plan. Hire a bike at Bike Stop Cafe, ride past the Captain Cook Memorial Water Jet and stop at Pollen for lunch.",
+      "image": "https://images.unsplash.com/photo-1593417533404-7c66fd0a3a44?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://visitcanberra.com.au/",
+      "venue": "Lake Burley Griffin, Canberra",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Mt Ainslie Lookout",
+      "description": "843m-high lookout with a perfect alignment along Anzac Parade through the city to Parliament House. Easy walking track from the War Memorial or drive to the top for sunset photos.",
+      "image": "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://visitcanberra.com.au/",
+      "venue": "Mt Ainslie Drive, Campbell",
+      "category": "Outdoors"
+    }
+  ],
+  "recurring": {
+    "SATURDAY": [
+      {
+        "title": "Capital Region Farmers Market",
+        "description": "Canberra's biggest weekend market — 100+ stalls of fresh produce direct from regional growers at the Exhibition Park. Every Saturday 7:30am-11:30am.",
+        "image": "https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://capitalregionfarmersmarket.com.au/",
+        "venue": "Exhibition Park, Mitchell",
+        "category": "Markets"
+      }
+    ],
+    "SUNDAY": [
+      {
+        "title": "Old Bus Depot Markets",
+        "description": "Canberra's much-loved Sunday market under the sawtooth roof of the 1930s tram depot in Kingston. 200+ stalls of design, crafts, gourmet food and live performance.",
+        "image": "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://obdm.com.au/",
+        "venue": "21 Wentworth Avenue, Kingston",
+        "category": "Markets"
+      }
+    ]
+  }
+}

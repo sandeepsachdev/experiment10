@@ -1,0 +1,56 @@
+{
+  "anchors": [
+    {
+      "title": "Sea Cliff Bridge",
+      "description": "665 metres of curved cantilevered bridge hanging off the Illawarra escarpment between Coalcliff and Clifton. Walk the protected pedestrian deck for postcard photos with the Pacific 40 metres below.",
+      "image": "https://images.unsplash.com/photo-1597566954186-3f3d51e09a16?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.visitwollongong.com.au/",
+      "venue": "Lawrence Hargrave Drive, Clifton",
+      "category": "Landmark"
+    },
+    {
+      "title": "Mount Keira Lookout",
+      "description": "464 metres above the Illawarra plain with panoramic views from Royal National Park to Kiama Blowhole. Drive to the summit or hike up the 5.5km Ring Track from the suburb of Keira.",
+      "image": "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.nationalparks.nsw.gov.au/visit-a-park/parks/mount-keira-state-conservation-area",
+      "venue": "Mount Keira Road, Mount Keira",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Nan Tien Temple",
+      "description": "The largest Buddhist temple in the Southern Hemisphere. Free entry to the main shrine, museum and Pilgrim Lodge tea house. 20 minutes south of Wollongong CBD.",
+      "image": "https://images.unsplash.com/photo-1577720580479-7d839d829c73?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.nantien.org.au/",
+      "venue": "180 Berkeley Road, Berkeley",
+      "category": "Culture"
+    },
+    {
+      "title": "Wollongong Botanic Garden",
+      "description": "27 hectares of free gardens with the Discovery Centre science museum and the Towri Bush Tucker Garden. Family-friendly playgrounds and lawns popular for picnics.",
+      "image": "https://images.unsplash.com/photo-1597007030739-6d2e7172ee6a?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://wollongong.nsw.gov.au/botanic-garden",
+      "venue": "61 Northfields Avenue, Keiraville",
+      "category": "Outdoors"
+    },
+    {
+      "title": "North Wollongong Beach & Towradgi Rock Pool",
+      "description": "Patrolled beach with adjoining grassy parklands, surf school and the heritage Towradgi Rock Pool ten minutes north — a 1934 ocean swimming pool cut into the rocks.",
+      "image": "https://images.unsplash.com/photo-1494791368093-85217fbbf8de?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.visitwollongong.com.au/",
+      "venue": "North Wollongong Beach",
+      "category": "Outdoors"
+    }
+  ],
+  "recurring": {
+    "FRIDAY": [
+      {
+        "title": "Eat Street Wollongong",
+        "description": "Crown Street Mall's Friday-night food truck festival from 5pm. 20+ vendors, live music and family lawns. Free entry.",
+        "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://wollongong.nsw.gov.au/",
+        "venue": "Crown Street Mall, Wollongong",
+        "category": "Food & Drink"
+      }
+    ]
+  }
+}

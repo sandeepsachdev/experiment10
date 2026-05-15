@@ -1,0 +1,56 @@
+{
+  "anchors": [
+    {
+      "title": "Eastern Beach Reserve & Carousel",
+      "description": "Geelong's heritage Art Deco waterfront — sea baths, 1930s diving boards, the restored 1892 carousel and the famous painted Baywalk Bollards stretching along the foreshore.",
+      "image": "https://images.unsplash.com/photo-1601981258639-08d8a8c46e7b?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.visitgeelongbellarine.com.au/",
+      "venue": "Eastern Beach Road, Geelong",
+      "category": "Family"
+    },
+    {
+      "title": "National Wool Museum",
+      "description": "Bluestone 1872 wool store on the waterfront, now home to Australia's national wool museum. See the working 1910 Axminster carpet loom and trace the industry that built the city.",
+      "image": "https://images.unsplash.com/photo-1577720580479-7d839d829c73?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.nwm.vic.gov.au/",
+      "venue": "26 Moorabool Street, Geelong",
+      "category": "Culture"
+    },
+    {
+      "title": "Geelong Botanic Gardens",
+      "description": "Free 19th-century gardens on Eastern Park, with the 21st Century Garden (a dryland exhibition), the Tropical Glasshouse and the heritage Director's Cottage cafe.",
+      "image": "https://images.unsplash.com/photo-1597007030739-6d2e7172ee6a?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.geelongaustralia.com.au/gbg/",
+      "venue": "Eastern Park, Geelong",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Steampacket Place & Cunningham Pier",
+      "description": "Refurbished bayside dining precinct and the city's iconic pier, with the popular The Pier restaurant at its far end. Bay walking trails and ferry connections to Portarlington.",
+      "image": "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.visitgeelongbellarine.com.au/",
+      "venue": "Steampacket Place, Geelong",
+      "category": "Food & Drink"
+    },
+    {
+      "title": "Bellarine Peninsula Day Trip",
+      "description": "30 minutes east — Queenscliff's heritage main street, the Bellarine Railway steam tours, and the cellar doors of Jack Rabbit, Scotchmans Hill and Terindah Estate.",
+      "image": "https://images.unsplash.com/photo-1601981258639-08d8a8c46e7b?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.visitgeelongbellarine.com.au/destinations/bellarine-peninsula/",
+      "venue": "Bellarine Peninsula, VIC",
+      "category": "Adventure"
+    }
+  ],
+  "recurring": {
+    "SUNDAY": [
+      {
+        "title": "Geelong Showgrounds Farmers Market",
+        "description": "Second Saturday of each month, 9am-1pm. 40+ regional growers, fresh produce, breakfast carts and live music at the Geelong Showgrounds.",
+        "image": "https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.geelongfarmersmarket.com.au/",
+        "venue": "Geelong Showgrounds, Breakwater",
+        "category": "Markets"
+      }
+    ]
+  }
+}

@@ -2,6 +2,7 @@ package com.sydneyevents.service.scraper;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sydneyevents.model.City;
 import com.sydneyevents.model.Event;
 import com.sydneyevents.service.EventScraper;
 import org.slf4j.Logger;
@@ -23,9 +24,7 @@ import java.util.List;
 
 /**
  * City of Sydney's official "What's On" feed via the Opendatasoft Explore API.
- * Returns clean JSON records with titles, descriptions, images, dates and venues.
- *
- * Dataset:  https://data.cityofsydney.nsw.gov.au/explore/dataset/whats-on/
+ * Sydney-only.
  */
 @Component
 public class CitySydneyOpenDataScraper implements EventScraper {
@@ -48,12 +47,17 @@ public class CitySydneyOpenDataScraper implements EventScraper {
     }
 
     @Override
-    public List<Event> scrape() {
+    public boolean supports(City city) {
+        return "sydney".equals(city.slug());
+    }
+
+    @Override
+    public List<Event> scrape(City city) {
         for (String dataset : DATASET_IDS) {
             try {
                 List<Event> found = fetch(dataset);
                 if (!found.isEmpty()) {
-                    log.info("CitySydneyOpenDataScraper got {} events from dataset '{}'",
+                    log.info("CitySydneyOpenData: {} events from dataset '{}'",
                             found.size(), dataset);
                     return found;
                 }
@@ -61,7 +65,7 @@ public class CitySydneyOpenDataScraper implements EventScraper {
                 log.debug("Dataset '{}' attempt failed: {}", dataset, ex.getMessage());
             }
         }
-        log.info("CitySydneyOpenDataScraper found no events");
+        log.info("CitySydneyOpenData: no events found");
         return List.of();
     }
 
@@ -73,6 +77,7 @@ public class CitySydneyOpenDataScraper implements EventScraper {
                 + datasetId
                 + "/records?limit=80&order_by=start_date%20asc&where=" + where;
 
+        log.info("CitySydneyOpenData request: GET {}", url);
         HttpRequest req = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .timeout(Duration.ofSeconds(10))
@@ -82,6 +87,8 @@ public class CitySydneyOpenDataScraper implements EventScraper {
                 .build();
 
         HttpResponse<String> resp = httpClient.send(req, HttpResponse.BodyHandlers.ofString());
+        log.info("CitySydneyOpenData response: HTTP {} ({} bytes)",
+                resp.statusCode(), resp.body() == null ? 0 : resp.body().length());
         if (resp.statusCode() != 200) return List.of();
 
         JsonNode root = mapper.readTree(resp.body());

@@ -12,10 +12,11 @@ public class HttpClientConfig {
 
     @Bean
     public HttpClient httpClient() {
-        return HttpClient.newBuilder()
+        HttpClient delegate = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(10))
                 .followRedirects(HttpClient.Redirect.NORMAL)
                 .build();
+        return new LoggingHttpClient(delegate);
     }
 
     @Bean

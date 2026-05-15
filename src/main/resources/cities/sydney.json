@@ -1,0 +1,156 @@
+{
+  "anchors": [
+    {
+      "title": "Sydney Opera House — Guided Tour",
+      "description": "Step inside one of the world's most iconic buildings. Hourly guided tours reveal the architectural genius of Jørn Utzon, the engineering breakthroughs of its sail-shaped shells, and the stories behind world-premiere performances on its stages.",
+      "image": "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.sydneyoperahouse.com/visit-us/tours",
+      "venue": "Sydney Opera House, Bennelong Point",
+      "category": "Landmark"
+    },
+    {
+      "title": "Bondi to Coogee Coastal Walk",
+      "description": "A six-kilometre cliff-top path linking Sydney's most famous beaches. Pass sandstone headlands, ocean pools at Bronte and Clovelly, and the rock-cut waters of Mahon Pool. Allow two hours one-way; free, open daily.",
+      "image": "https://images.unsplash.com/photo-1523428096881-5bd79d043006?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.bondicoastalwalk.com/",
+      "venue": "Bondi Beach to Coogee Beach",
+      "category": "Outdoors"
+    },
+    {
+      "title": "BridgeClimb — Sydney Harbour Bridge",
+      "description": "Scale the arches of the Sydney Harbour Bridge at 134 metres above the water. Dawn, day, twilight and night climbs run every day with panoramic views over the Opera House, harbour and city skyline.",
+      "image": "https://images.unsplash.com/photo-1571983823232-07c00f4b3c80?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.bridgeclimb.com/",
+      "venue": "3 Cumberland Street, The Rocks",
+      "category": "Adventure"
+    },
+    {
+      "title": "Taronga Zoo Sydney",
+      "description": "Home to more than 4,000 animals in harbour-front habitats. Don't miss the Seal Show, Free Flight Bird Show and Australian Walkabout. The Sky Safari cable car carries you in from the ferry wharf with one of the best views in Sydney.",
+      "image": "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://taronga.org.au/sydney-zoo",
+      "venue": "Bradleys Head Road, Mosman",
+      "category": "Family"
+    },
+    {
+      "title": "Royal Botanic Garden Sydney",
+      "description": "30 hectares of harbour-side gardens beside the Opera House. Free to enter; daily Aboriginal Heritage Tours, the Calyx exhibition glasshouse, and Mrs Macquarie's Chair for the postcard view of the bridge framing the Opera House.",
+      "image": "https://images.unsplash.com/photo-1597007030739-6d2e7172ee6a?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.botanicgardens.org.au/",
+      "venue": "Mrs Macquaries Road, Sydney",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Art Gallery of New South Wales",
+      "description": "Free entry to one of Australia's leading public galleries, now spanning two architectural landmarks connected by the harbour-side art garden. See major Aboriginal and Torres Strait Islander art, European masters and rotating international exhibitions.",
+      "image": "https://images.unsplash.com/photo-1577720580479-7d839d829c73?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.artgallery.nsw.gov.au/",
+      "venue": "Art Gallery Road, The Domain",
+      "category": "Culture"
+    },
+    {
+      "title": "Manly Ferry & Beach Day",
+      "description": "Catch the F1 ferry from Circular Quay through the heads of Sydney Harbour to Manly — a half-hour ride that locals call 'the world's best commute'. Surf lessons, ocean pools and The Corso are all a short stroll from the wharf.",
+      "image": "https://images.unsplash.com/photo-1551406483-3731d1997540?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://transportnsw.info/",
+      "venue": "Circular Quay to Manly Wharf",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Cockatoo Island UNESCO Site",
+      "description": "The largest island in Sydney Harbour, a UNESCO World Heritage convict site and former shipyard. Self-guided audio tour, art installations, and waterfront camping you can book by the night. Ferry from Circular Quay.",
+      "image": "https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.cockatooisland.gov.au/",
+      "venue": "Cockatoo Island, Sydney Harbour",
+      "category": "Culture"
+    }
+  ],
+  "recurring": {
+    "MONDAY": [
+      {
+        "title": "Comedy Lounge at the Roxbury, Glebe",
+        "description": "Sydney's longest-running Monday-night stand-up. New-material night with established headliners testing routines — eight comics, a $10 cover and a cold schooner in hand.",
+        "image": "https://images.unsplash.com/photo-1527224538127-2104bb71c51b?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.theroxbury.com.au/",
+        "venue": "182 St Johns Road, Glebe",
+        "category": "Comedy"
+      }
+    ],
+    "TUESDAY": [
+      {
+        "title": "Cheap Tuesday at Dendy Newtown",
+        "description": "Indie cinema night — all sessions $13 every Tuesday at one of Sydney's best-loved arthouse cinemas. Pre-show drinks at the in-house bar.",
+        "image": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.dendy.com.au/",
+        "venue": "261-263 King Street, Newtown",
+        "category": "Film"
+      }
+    ],
+    "WEDNESDAY": [
+      {
+        "title": "Twilight at Taronga",
+        "description": "Taronga Zoo stays open later on Wednesdays — see nocturnal animals waking up, with sunset views of the city skyline from the Sky Safari.",
+        "image": "https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://taronga.org.au/sydney-zoo/whats-on",
+        "venue": "Taronga Zoo, Mosman",
+        "category": "Family"
+      }
+    ],
+    "THURSDAY": [
+      {
+        "title": "Art Gallery of NSW — Art After Hours",
+        "description": "Free Thursday late-night opening until 10pm, with celebrity guest talks, live music, films and pop-up bars across the gallery's two buildings.",
+        "image": "https://images.unsplash.com/photo-1518998053901-5348d3961a04?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.artgallery.nsw.gov.au/art-after-hours/",
+        "venue": "Art Gallery Road, The Domain",
+        "category": "Culture"
+      }
+    ],
+    "FRIDAY": [
+      {
+        "title": "Carriageworks Twilight Food Market",
+        "description": "Friday-night farmers' and street-food market in the cathedral-sized industrial halls of Carriageworks, Redfern. 70+ producers, woodfired pizza, natural wine bars and live DJs from 4pm.",
+        "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://carriageworks.com.au/",
+        "venue": "245 Wilson Street, Eveleigh",
+        "category": "Markets"
+      }
+    ],
+    "SATURDAY": [
+      {
+        "title": "The Rocks Markets",
+        "description": "Every Saturday and Sunday under the Harbour Bridge, more than 150 stalls of local artisans, designers and street food. Live music and pop-up bars from late morning. Free entry, kid-friendly.",
+        "image": "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.therocks.com/things-to-do/the-rocks-markets",
+        "venue": "Playfair Street & George Street, The Rocks",
+        "category": "Markets"
+      },
+      {
+        "title": "Darling Harbour Fireworks",
+        "description": "Free 8:30pm fireworks every Saturday night over Cockle Bay. Grab a spot on the boardwalk by Tumbalong Park or watch from the Pyrmont Bridge for an uninterrupted view.",
+        "image": "https://images.unsplash.com/photo-1530541930197-ff16ac917b0e?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.darlingharbour.com/",
+        "venue": "Darling Harbour",
+        "category": "Free"
+      }
+    ],
+    "SUNDAY": [
+      {
+        "title": "Glebe Markets",
+        "description": "Sydney's beloved Sunday market under the plane trees of Glebe Public School. Vintage clothing, vinyl, plants and 30+ international food stalls. 10am-4pm every Sunday.",
+        "image": "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.glebemarkets.com.au/",
+        "venue": "Glebe Public School, 183A Glebe Point Road",
+        "category": "Markets"
+      },
+      {
+        "title": "Bondi Markets",
+        "description": "Every Sunday on the lawns of Bondi Beach Public School, 9am-4pm. Curated emerging Australian designers, vintage fashion, and a separate farmers' produce section. Beach is two minutes' walk away.",
+        "image": "https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://bondimarkets.com.au/",
+        "venue": "Bondi Beach Public School, Campbell Parade",
+        "category": "Markets"
+      }
+    ]
+  }
+}

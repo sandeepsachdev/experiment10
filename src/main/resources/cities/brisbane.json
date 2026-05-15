@@ -1,0 +1,110 @@
+{
+  "anchors": [
+    {
+      "title": "South Bank Parklands & Streets Beach",
+      "description": "17 hectares of riverside parkland with Streets Beach — Australia's only city-centre, inner-city, man-made beach lagoon. Free to swim, with cafes and the Wheel of Brisbane right next door.",
+      "image": "https://images.unsplash.com/photo-1566734904496-9309bb1798ae?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.visitbrisbane.com.au/south-bank/",
+      "venue": "South Bank, Brisbane",
+      "category": "Outdoors"
+    },
+    {
+      "title": "GOMA — Gallery of Modern Art",
+      "description": "The largest gallery of modern and contemporary art in Australia. Free entry, with the Asia Pacific Triennial and major touring exhibitions across two riverside buildings on the South Bank Cultural Precinct.",
+      "image": "https://images.unsplash.com/photo-1577720580479-7d839d829c73?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.qagoma.qld.gov.au/",
+      "venue": "Stanley Place, South Brisbane",
+      "category": "Culture"
+    },
+    {
+      "title": "Lone Pine Koala Sanctuary",
+      "description": "The world's first and largest koala sanctuary, opened in 1927. Hold a koala, hand-feed kangaroos and emus, and watch the daily sheep dog show on 30 hectares along the Brisbane River.",
+      "image": "https://images.unsplash.com/photo-1591389703635-e15a07b842d7?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://lonepinekoalasanctuary.com/",
+      "venue": "708 Jesmond Road, Fig Tree Pocket",
+      "category": "Family"
+    },
+    {
+      "title": "Story Bridge Adventure Climb",
+      "description": "Australia's longest steel cantilever bridge, scaled at 80 metres above the Brisbane River. Dawn, day, twilight and night climbs available, with panoramic views to Moreton Bay on a clear day.",
+      "image": "https://images.unsplash.com/photo-1571983823232-07c00f4b3c80?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.sbac.net.au/",
+      "venue": "170 Main Street, Kangaroo Point",
+      "category": "Adventure"
+    },
+    {
+      "title": "Mt Coot-tha Lookout & Botanic Gardens",
+      "description": "Brisbane's iconic lookout, 287m above sea level, with sweeping views from the city skyline to Moreton Bay. The adjoining Botanic Gardens host the Tropical Display Dome and the free Planetarium.",
+      "image": "https://images.unsplash.com/photo-1597007030739-6d2e7172ee6a?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.brisbane.qld.gov.au/things-to-do/brisbane-botanic-gardens-mt-coot-tha",
+      "venue": "1014 Sir Samuel Griffith Drive, Mount Coot-tha",
+      "category": "Outdoors"
+    },
+    {
+      "title": "City Cat Ferry — Riverwalk",
+      "description": "Hop on a CityCat — Brisbane's high-speed catamaran ferry — for a $5 cross-city cruise. Start at North Quay, swing past Kangaroo Point Cliffs and the Story Bridge, and disembark for dinner at Howard Smith Wharves.",
+      "image": "https://images.unsplash.com/photo-1551406483-3731d1997540?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://translink.com.au/",
+      "venue": "Brisbane River, multiple terminals",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Howard Smith Wharves",
+      "description": "Brisbane's premier dining precinct, tucked under the Story Bridge. Riverfront restaurants, the Felons Brewing Co. beer garden, and a one-hectare lawn for sunset drinks with skyline views.",
+      "image": "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://howardsmithwharves.com/",
+      "venue": "5 Boundary Street, Brisbane City",
+      "category": "Food & Drink"
+    }
+  ],
+  "recurring": {
+    "WEDNESDAY": [
+      {
+        "title": "South Bank Twilight Markets",
+        "description": "Fairy-lit weekly market along Stanley Street Plaza with handmade goods, jewellery and live music. From 4pm-9pm every Friday, with extended runs on Wednesdays during school holidays.",
+        "image": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://collectivemarkets.com.au/",
+        "venue": "Stanley Street Plaza, South Bank",
+        "category": "Markets"
+      }
+    ],
+    "FRIDAY": [
+      {
+        "title": "Eat Street Northshore",
+        "description": "150+ shipping-container-style food stalls every Friday, Saturday and Sunday night at Hamilton Wharf. World street food, live music and waterfront dining. Free entry until 4pm, ticketed after.",
+        "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://eatstreetnorthshore.com.au/",
+        "venue": "221D MacArthur Avenue, Hamilton",
+        "category": "Food & Drink"
+      }
+    ],
+    "SATURDAY": [
+      {
+        "title": "Eat Street Northshore",
+        "description": "Brisbane's biggest weekend night-market. Live bands, fire performers, dessert lanes and one of the country's largest gin bars. From 4pm.",
+        "image": "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://eatstreetnorthshore.com.au/",
+        "venue": "221D MacArthur Avenue, Hamilton",
+        "category": "Food & Drink"
+      },
+      {
+        "title": "Jan Powers Farmers Market — Brisbane Powerhouse",
+        "description": "Every Saturday morning along the river at the New Farm Powerhouse. 90+ stalls of farm-direct produce, gourmet smallgoods and breakfast tents. 6am-12pm.",
+        "image": "https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://janpowersfarmersmarkets.com.au/",
+        "venue": "Brisbane Powerhouse, 119 Lamington Street, New Farm",
+        "category": "Markets"
+      }
+    ],
+    "SUNDAY": [
+      {
+        "title": "West End Sunday Markets at Davies Park",
+        "description": "Inner-city Brisbane's biggest Sunday market under the Moreton Bay fig trees of Davies Park. Live folk music, organic produce, hot food vendors and West End's bohemian crowd.",
+        "image": "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.daviesparkmarket.com.au/",
+        "venue": "Davies Park, Jane Street, West End",
+        "category": "Markets"
+      }
+    ]
+  }
+}

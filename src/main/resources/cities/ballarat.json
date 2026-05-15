@@ -1,0 +1,56 @@
+{
+  "anchors": [
+    {
+      "title": "Sovereign Hill",
+      "description": "Living-history gold rush museum — costumed staff, working gold mines, the Red Hill panning creek and the nightly AURA sound-and-light show. Allow a full day.",
+      "image": "https://images.unsplash.com/photo-1611605645802-c21be743c321?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://sovereignhill.com.au/",
+      "venue": "Bradshaw Street, Ballarat",
+      "category": "Family"
+    },
+    {
+      "title": "Art Gallery of Ballarat",
+      "description": "Australia's oldest and largest regional gallery, established 1884. Houses the original Eureka Flag, plus major works by McCubbin, Streeton and contemporary Indigenous artists. Free entry.",
+      "image": "https://images.unsplash.com/photo-1577720580479-7d839d829c73?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://artgalleryofballarat.com.au/",
+      "venue": "40 Lydiard Street North, Ballarat",
+      "category": "Culture"
+    },
+    {
+      "title": "Lake Wendouree Promenade",
+      "description": "6km walking and cycling loop around the lake at the western edge of the city. Picnic at the Botanical Gardens, hire a row boat, or sit at the Olympic Stand from the 1956 Games.",
+      "image": "https://images.unsplash.com/photo-1597007030739-6d2e7172ee6a?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.visitballarat.com.au/",
+      "venue": "Lake Wendouree, Ballarat",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Eureka Centre Ballarat",
+      "description": "Free museum on the site of the 1854 Eureka Rebellion — Australia's only armed civil uprising and the birthplace of Australian democracy. The original Eureka Flag is displayed nearby at the Art Gallery.",
+      "image": "https://images.unsplash.com/photo-1602166242292-91d0b6f24ce6?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://eurekacentreballarat.com.au/",
+      "venue": "102 Stawell Street South, Eureka",
+      "category": "Culture"
+    },
+    {
+      "title": "Kryal Castle",
+      "description": "Medieval-themed castle outside Ballarat — jousting tournaments, the dragon's labyrinth and weekend feasts in the Great Hall. Family-favourite day trip.",
+      "image": "https://images.unsplash.com/photo-1518998053901-5348d3961a04?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.kryalcastle.com.au/",
+      "venue": "121 Forbes Road, Leigh Creek",
+      "category": "Adventure"
+    }
+  ],
+  "recurring": {
+    "SATURDAY": [
+      {
+        "title": "Ballarat Farmers Market",
+        "description": "Every Saturday morning at the Mining Exchange. 40+ growers and producers from across the Central Highlands. 8:30am-12:30pm.",
+        "image": "https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://ballaratfarmersmarket.com.au/",
+        "venue": "Mining Exchange, Lydiard Street",
+        "category": "Markets"
+      }
+    ]
+  }
+}

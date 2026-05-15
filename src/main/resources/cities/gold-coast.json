@@ -1,0 +1,76 @@
+{
+  "anchors": [
+    {
+      "title": "Surfers Paradise Beach",
+      "description": "Three kilometres of golden sand backed by the Gold Coast's neon high-rise skyline. Surf lifesaving patrols, daily surf-school lessons and easy parking at Cavill Avenue.",
+      "image": "https://images.unsplash.com/photo-1493606278519-11aa9f86e40a?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.destinationgoldcoast.com/",
+      "venue": "Esplanade, Surfers Paradise",
+      "category": "Outdoors"
+    },
+    {
+      "title": "SkyPoint Observation Deck",
+      "description": "230 metres up the Q1 Tower — Australia's tallest residential building — for 360° views from the hinterland to the Pacific. Optional 'SkyPoint Climb' on the spire takes you 100m higher.",
+      "image": "https://images.unsplash.com/photo-1571983823232-07c00f4b3c80?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.skypoint.com.au/",
+      "venue": "Q1 Building, Surfers Paradise",
+      "category": "Landmark"
+    },
+    {
+      "title": "Currumbin Wildlife Sanctuary",
+      "description": "27 hectares of bushland-set Australian wildlife. Hand-feed wild rainbow lorikeets at the daily lorikeet feeding (since 1947), and meet koalas, kangaroos and the resident free-flight birds.",
+      "image": "https://images.unsplash.com/photo-1591389703635-e15a07b842d7?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://currumbinsanctuary.com.au/",
+      "venue": "28 Tomewin Street, Currumbin",
+      "category": "Family"
+    },
+    {
+      "title": "Burleigh Heads National Park",
+      "description": "Sub-tropical rainforest meets headland in this small national park between Burleigh Beach and Tallebudgera Creek. The 2.3km Oceanview Track passes some of the Gold Coast's best surf breaks.",
+      "image": "https://images.unsplash.com/photo-1523428096881-5bd79d043006?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://parks.des.qld.gov.au/parks/burleigh-head",
+      "venue": "Goodwin Terrace, Burleigh Heads",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Tamborine Mountain Day Trip",
+      "description": "45 minutes inland to the Gold Coast hinterland — Gallery Walk artisan strip, the Tamborine Rainforest Skywalk, distilleries, and the Curtis Falls walk through subtropical rainforest.",
+      "image": "https://images.unsplash.com/photo-1597007030739-6d2e7172ee6a?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://visittamborinemountain.com.au/",
+      "venue": "Tamborine Mountain, QLD",
+      "category": "Adventure"
+    }
+  ],
+  "recurring": {
+    "WEDNESDAY": [
+      {
+        "title": "Surfers Paradise Beachfront Markets",
+        "description": "Saltwater-air market under the palms along the esplanade. 100+ stalls of beachy fashion, jewellery and crafts every Wednesday, Friday and Sunday from 4pm-9pm.",
+        "image": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.surfersparadise.com/",
+        "venue": "The Esplanade, Surfers Paradise",
+        "category": "Markets"
+      }
+    ],
+    "FRIDAY": [
+      {
+        "title": "Surfers Paradise Beachfront Markets",
+        "description": "The Friday-night session of the Esplanade market — live buskers and a string of food trucks along Cavill Mall.",
+        "image": "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.surfersparadise.com/",
+        "venue": "The Esplanade, Surfers Paradise",
+        "category": "Markets"
+      }
+    ],
+    "SUNDAY": [
+      {
+        "title": "The Village Markets — Burleigh Heads",
+        "description": "Gold Coast's premier curated handmade market in the grounds of Burleigh State School. Second and fourth Sundays of each month, 8am-1pm.",
+        "image": "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://thevillagemarkets.co/",
+        "venue": "Burleigh Heads State School",
+        "category": "Markets"
+      }
+    ]
+  }
+}

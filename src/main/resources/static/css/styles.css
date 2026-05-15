@@ -36,9 +36,8 @@ a { color: var(--harbour); }
 .hero-bg {
     position: absolute;
     inset: 0;
-    background:
-        linear-gradient(120deg, rgba(10, 61, 98, 0.78), rgba(30, 96, 145, 0.5)),
-        url('https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1800&q=80') center/cover;
+    background-size: cover;
+    background-position: center;
     z-index: 0;
 }
 .hero-content {
@@ -63,6 +62,42 @@ a { color: var(--harbour); }
     font-size: 0.95rem;
     opacity: 0.9;
     margin: 0;
+}
+
+.city-picker {
+    margin: 0 auto 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.75rem 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--ink);
+    border-radius: 999px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    font-size: 0.95rem;
+}
+.city-picker label {
+    color: var(--muted);
+    font-weight: 500;
+}
+.city-picker select {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    background: transparent;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--sydney-blue);
+    padding: 0.2rem 1.4rem 0.2rem 0.2rem;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' width='12' height='8'><path d='M1 1l5 5 5-5' stroke='%230a3d62' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 0.2rem center;
+}
+.city-picker select:focus {
+    outline: 2px solid var(--harbour);
+    outline-offset: 2px;
+    border-radius: 6px;
 }
 
 /* Day navigation */

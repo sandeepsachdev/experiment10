@@ -2,10 +2,10 @@ package com.sydneyevents.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sydneyevents.model.City;
 import com.sydneyevents.model.WeatherDay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -25,28 +25,19 @@ public class WeatherService {
     private final HttpClient httpClient;
     private final ObjectMapper mapper = new ObjectMapper();
 
-    @Value("${app.weather.latitude}")
-    private double latitude;
-
-    @Value("${app.weather.longitude}")
-    private double longitude;
-
-    @Value("${app.weather.timezone}")
-    private String timezone;
-
     public WeatherService(HttpClient httpClient) {
         this.httpClient = httpClient;
     }
 
-    @Cacheable("weather")
-    public List<WeatherDay> getNext7DaysForecast() {
+    @Cacheable(value = "weather", key = "#city.slug()")
+    public List<WeatherDay> getNext7DaysForecast(City city) {
         String url = "https://api.open-meteo.com/v1/forecast"
-                + "?latitude=" + latitude
-                + "&longitude=" + longitude
+                + "?latitude=" + city.latitude()
+                + "&longitude=" + city.longitude()
                 + "&daily=weather_code,temperature_2m_max,temperature_2m_min,"
                 + "precipitation_sum,precipitation_probability_max,"
                 + "wind_speed_10m_max,uv_index_max,sunrise,sunset"
-                + "&timezone=" + timezone.replace("/", "%2F")
+                + "&timezone=" + city.timezone().replace("/", "%2F")
                 + "&forecast_days=7";
 
         try {
@@ -58,13 +49,14 @@ public class WeatherService {
 
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() != 200) {
-                log.warn("Weather API returned {}: {}", response.statusCode(), response.body());
+                log.warn("Weather API returned {} for {}: {}",
+                        response.statusCode(), city.slug(), response.body());
                 return List.of();
             }
 
             return parseForecast(response.body());
         } catch (Exception e) {
-            log.error("Failed to fetch weather forecast", e);
+            log.error("Failed to fetch weather forecast for {}", city.slug(), e);
             return List.of();
         }
     }
@@ -104,7 +96,6 @@ public class WeatherService {
     }
 
     private String formatTime(String iso) {
-        // Open-Meteo returns local time like "2025-05-15T06:42"
         int t = iso.indexOf('T');
         return t > 0 && iso.length() >= t + 6 ? iso.substring(t + 1, t + 6) : iso;
     }

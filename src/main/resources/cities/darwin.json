@@ -1,0 +1,84 @@
+{
+  "anchors": [
+    {
+      "title": "Darwin Waterfront Precinct",
+      "description": "Reclaimed harbour district with a stinger-free recreational lagoon, wave pool and waterfront dining. The Royal Flying Doctor Service Darwin Tourist Facility tells the story of the 1942 Bombing of Darwin in a hologram theatre.",
+      "image": "https://images.unsplash.com/photo-1591538834179-c3ed4a0a8b1b?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.waterfront.nt.gov.au/",
+      "venue": "Darwin Waterfront, Stokes Hill",
+      "category": "Family"
+    },
+    {
+      "title": "Crocosaurus Cove — Cage of Death",
+      "description": "Be lowered into the saltwater crocodile enclosure inside a clear acrylic 'Cage of Death' — face-to-face with a 5-metre apex predator. The world's only crocodile dive in the heart of a CBD.",
+      "image": "https://images.unsplash.com/photo-1591389703635-e15a07b842d7?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://crocosauruscove.com/",
+      "venue": "58 Mitchell Street, Darwin",
+      "category": "Adventure"
+    },
+    {
+      "title": "George Brown Darwin Botanic Gardens",
+      "description": "One of the few botanic gardens in the world with both marine and estuarine plant communities. 42 hectares of tropical flora, monsoon rainforest and a Children's Evolutionary Playground.",
+      "image": "https://images.unsplash.com/photo-1597007030739-6d2e7172ee6a?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://nt.gov.au/leisure/parks-reserves/find-a-park-to-visit/george-brown-darwin-botanic-gardens",
+      "venue": "Gardens Road, The Gardens",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Museum & Art Gallery of the NT",
+      "description": "Free entry to the Northern Territory's flagship museum. Highlights include the world's most comprehensive Cyclone Tracy exhibit and Sweetheart — the 5.1m saltwater crocodile that became Darwin's most famous animal.",
+      "image": "https://images.unsplash.com/photo-1577720580479-7d839d829c73?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://magnt.net.au/",
+      "venue": "19 Conacher Street, Bullocky Point",
+      "category": "Culture"
+    },
+    {
+      "title": "East Point Reserve at Sunset",
+      "description": "Cliff-top reserve and the closest place to the city to watch the legendary Darwin sunset over the Beagle Gulf. Bring mozzie spray and stop at the Defence of Darwin Experience on the way out.",
+      "image": "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://nt.gov.au/leisure/parks-reserves/find-a-park-to-visit/east-point-reserve",
+      "venue": "East Point Road, East Point",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Litchfield National Park Day Trip",
+      "description": "90-minute drive south of the city to safe, croc-free swimming holes at Wangi, Florence and Buley Rockhole, plus the cathedral-sized magnetic termite mounds. The most accessible national park from Darwin.",
+      "image": "https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://nt.gov.au/leisure/parks-reserves/find-a-park-to-visit/litchfield-national-park",
+      "venue": "Litchfield National Park, NT",
+      "category": "Adventure"
+    }
+  ],
+  "recurring": {
+    "THURSDAY": [
+      {
+        "title": "Mindil Beach Sunset Market",
+        "description": "Darwin's quintessential dry-season market on the beach. 200+ stalls of South-East Asian street food, arts, crafts and live music. Thursday and Sunday from May to October, 4pm-9pm.",
+        "image": "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.mindil.com.au/",
+        "venue": "Mindil Beach, Darwin",
+        "category": "Markets"
+      }
+    ],
+    "SATURDAY": [
+      {
+        "title": "Parap Village Markets",
+        "description": "Asian street-food market every Saturday morning in the suburb of Parap. Laksa, papaya salad, gozleme and fresh tropical fruit — go hungry.",
+        "image": "https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://parapvillage.com.au/",
+        "venue": "Parap Shopping Village, Darwin",
+        "category": "Markets"
+      }
+    ],
+    "SUNDAY": [
+      {
+        "title": "Mindil Beach Sunset Market",
+        "description": "The big Sunday session — packed crowds, more performers and the best chance to catch the sun setting over the gulf with a plate of laksa in hand. Dry season only.",
+        "image": "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.mindil.com.au/",
+        "venue": "Mindil Beach, Darwin",
+        "category": "Markets"
+      }
+    ]
+  }
+}

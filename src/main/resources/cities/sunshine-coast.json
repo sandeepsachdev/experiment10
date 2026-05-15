@@ -1,0 +1,66 @@
+{
+  "anchors": [
+    {
+      "title": "Mooloolaba Beach & Esplanade",
+      "description": "The Sunshine Coast's most popular beach — a patrolled, family-safe arc backed by a palm-lined esplanade of cafes and gelato bars. Stinger nets in summer.",
+      "image": "https://images.unsplash.com/photo-1572206912757-5a78ac39bf9c?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.visitsunshinecoast.com/",
+      "venue": "Mooloolaba Esplanade",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Australia Zoo",
+      "description": "Steve Irwin's wildlife park on the Sunshine Coast hinterland — 1,200+ animals, daily Wildlife Warriors Show in the Crocoseum, and the Tiger Walk. Allow a full day.",
+      "image": "https://images.unsplash.com/photo-1591389703635-e15a07b842d7?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.australiazoo.com.au/",
+      "venue": "1638 Steve Irwin Way, Beerwah",
+      "category": "Family"
+    },
+    {
+      "title": "Noosa National Park Coastal Walk",
+      "description": "Pandanus-and-eucalypt clifftop trail from Hastings Street to Hell's Gates and back. Easy 5km return; spot koalas in the spotted gums and turtles in the surf below.",
+      "image": "https://images.unsplash.com/photo-1523428096881-5bd79d043006?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://parks.des.qld.gov.au/parks/noosa",
+      "venue": "Park Road, Noosa Heads",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Glass House Mountains Lookout",
+      "description": "Captain Cook's view from 1770 — eleven volcanic plugs rising abruptly from the coastal plain. Drive 40 minutes inland for the easy 1km Glass House Mountains Lookout walk.",
+      "image": "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://parks.des.qld.gov.au/parks/glass-house-mountains",
+      "venue": "Glass House Mountains, QLD",
+      "category": "Adventure"
+    },
+    {
+      "title": "Maleny Dairies Tour",
+      "description": "Working dairy farm in the Sunshine Coast hinterland with daily 90-minute farm tours — bottle-feed calves, milk a cow, then taste the dairy's flavoured milks. Family-run since 2003.",
+      "image": "https://images.unsplash.com/photo-1597007030739-6d2e7172ee6a?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.malenydairies.com/",
+      "venue": "70 McCarthy Road, Maleny",
+      "category": "Family"
+    }
+  ],
+  "recurring": {
+    "WEDNESDAY": [
+      {
+        "title": "Eumundi Markets",
+        "description": "Australia's most awarded artisan markets in the heritage village of Eumundi. 600+ stalls of designers, makers and live performers. Wednesdays 8am-1:30pm, Saturdays 7am-2pm.",
+        "image": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.eumundimarkets.com.au/",
+        "venue": "80 Memorial Drive, Eumundi",
+        "category": "Markets"
+      }
+    ],
+    "SATURDAY": [
+      {
+        "title": "Eumundi Markets — Saturday",
+        "description": "The big Saturday session at Eumundi — packed lanes, live buskers and the best chance to meet the makers. 7am-2pm.",
+        "image": "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.eumundimarkets.com.au/",
+        "venue": "80 Memorial Drive, Eumundi",
+        "category": "Markets"
+      }
+    ]
+  }
+}

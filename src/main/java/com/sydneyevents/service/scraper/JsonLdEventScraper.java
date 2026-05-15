@@ -2,6 +2,7 @@ package com.sydneyevents.service.scraper;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sydneyevents.model.City;
 import com.sydneyevents.model.Event;
 import com.sydneyevents.service.EventScraper;
 import org.jsoup.Jsoup;
@@ -14,13 +15,12 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Generic scraper that reads JSON-LD schema.org/Event blocks from
- * Sydney event listing pages. Many CMS-driven sites publish this.
+ * Sydney-specific tourism / venue pages.
  */
 @Component
 public class JsonLdEventScraper implements EventScraper {
@@ -45,10 +45,16 @@ public class JsonLdEventScraper implements EventScraper {
     }
 
     @Override
-    public List<Event> scrape() {
+    public boolean supports(City city) {
+        return "sydney".equals(city.slug());
+    }
+
+    @Override
+    public List<Event> scrape(City city) {
         List<Event> all = new ArrayList<>();
         for (String url : URLS) {
             try {
+                log.info("JsonLd request: GET {}", url);
                 Document doc = Jsoup.connect(url)
                         .userAgent(userAgent)
                         .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
@@ -59,11 +65,11 @@ public class JsonLdEventScraper implements EventScraper {
                 for (Element script : doc.select("script[type=application/ld+json]")) {
                     parseJsonLd(script.data(), url, all);
                 }
+                log.info("JsonLd response: parsed {} (total {} events so far)", url, all.size());
             } catch (Exception e) {
                 log.warn("JsonLd scrape failed for {}: {}", url, e.getMessage());
             }
         }
-        log.info("JsonLdEventScraper found {} events", all.size());
         return all;
     }
 
@@ -82,7 +88,6 @@ public class JsonLdEventScraper implements EventScraper {
         }
         if (!node.isObject()) return;
 
-        // @graph wrapper
         if (node.has("@graph")) {
             collect(node.get("@graph"), pageUrl, sink);
         }
@@ -103,7 +108,6 @@ public class JsonLdEventScraper implements EventScraper {
         e.setDescription(textOrNull(n, "description"));
         e.setUrl(firstNonBlank(textOrNull(n, "url"), pageUrl));
 
-        // image: string or object or array
         JsonNode img = n.path("image");
         if (img.isTextual()) {
             e.setImageUrl(img.asText());
@@ -142,7 +146,7 @@ public class JsonLdEventScraper implements EventScraper {
         if (s == null || s.isBlank()) return null;
         try {
             return LocalDate.parse(s.substring(0, Math.min(10, s.length())));
-        } catch (DateTimeParseException e) {
+        } catch (Exception e) {
             try {
                 return OffsetDateTime.parse(s).toLocalDate();
             } catch (Exception e2) {

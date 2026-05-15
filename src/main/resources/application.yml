@@ -20,12 +20,13 @@ app:
   scrape:
     user-agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
     timeout-ms: 8000
-  weather:
-    latitude: -33.8688
-    longitude: 151.2093
-    timezone: Australia/Sydney
 
 logging:
   level:
     root: INFO
     com.sydneyevents: INFO
+    # Set to DEBUG to log full request headers and (truncated) response bodies
+    # for every outgoing API/HTTP call.
+    com.sydneyevents.http: INFO
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %-5level [%-15.15thread] %-30.30logger{30} : %msg%n"

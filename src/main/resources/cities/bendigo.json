@@ -1,0 +1,56 @@
+{
+  "anchors": [
+    {
+      "title": "Bendigo Art Gallery",
+      "description": "One of Australia's oldest and largest regional galleries, known for its blockbuster international fashion exhibitions. Houses 5,000+ works from colonial to contemporary.",
+      "image": "https://images.unsplash.com/photo-1568797629192-89d7da82c1f4?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.bendigoregion.com.au/bendigo-art-gallery",
+      "venue": "42 View Street, Bendigo",
+      "category": "Culture"
+    },
+    {
+      "title": "Central Deborah Gold Mine",
+      "description": "Take the lift 61 metres underground into a real 19th-century gold mine. Hard-hat tour with working stamper batteries and a 'Mine Experience' that lets you drill rock.",
+      "image": "https://images.unsplash.com/photo-1571983823232-07c00f4b3c80?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.centraldeborah.com/",
+      "venue": "76 Violet Street, Bendigo",
+      "category": "Adventure"
+    },
+    {
+      "title": "Bendigo Tramways Vintage Tour",
+      "description": "Climb aboard a heritage tram for an hour-long, hop-on hop-off tour of Bendigo's grand boulevards. Audio commentary tells the story of the gold-rush wealth that built the city.",
+      "image": "https://images.unsplash.com/photo-1593417533404-7c66fd0a3a44?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://bendigotramways.com/",
+      "venue": "1 Tramways Avenue, North Bendigo",
+      "category": "Family"
+    },
+    {
+      "title": "Golden Dragon Museum",
+      "description": "Tells the story of Bendigo's enduring Chinese community since the 1850s gold rush. Home to Sun Loong — at 100m long, one of the world's longest imperial dragons.",
+      "image": "https://images.unsplash.com/photo-1577720580479-7d839d829c73?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.goldendragonmuseum.org/",
+      "venue": "1 Bridge Street, Bendigo",
+      "category": "Culture"
+    },
+    {
+      "title": "Rosalind Park & Poppet Head Lookout",
+      "description": "Heritage-listed parklands beside the City Hall. Climb the restored 1876 Poppet Head mining frame for the city's best lookout, with views across the cathedral and Pall Mall.",
+      "image": "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.bendigoregion.com.au/",
+      "venue": "Rosalind Park, Bendigo",
+      "category": "Outdoors"
+    }
+  ],
+  "recurring": {
+    "SATURDAY": [
+      {
+        "title": "Bendigo Community Farmers Market",
+        "description": "Second Saturday of each month, 9am-1pm at Rosalind Park. 50+ local growers from across the central Victorian gold-country.",
+        "image": "https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.bendigofarmersmarket.com.au/",
+        "venue": "Rosalind Park, Bendigo",
+        "category": "Markets"
+      }
+    ]
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "anchors": [
+    {
+      "title": "Cairns Esplanade Lagoon",
+      "description": "Free 4,800m² saltwater swimming lagoon on the foreshore — sandy, lifeguard-supervised and croc-free. The 2.5km esplanade has free BBQs, playgrounds and a 35-station fitness circuit.",
+      "image": "https://images.unsplash.com/photo-1572206912757-5a78ac39bf9c?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.cairns.qld.gov.au/cairns-esplanade",
+      "venue": "Cairns Esplanade",
+      "category": "Family"
+    },
+    {
+      "title": "Great Barrier Reef Day Cruise",
+      "description": "Multiple operators run daily catamarans from the Reef Fleet Terminal to the outer reef pontoons of Norman, Moore and Hastings. Snorkel, dive, and view from the glass-bottom boats. Includes all gear.",
+      "image": "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.tropicalnorthqueensland.org.au/things-to-do/great-barrier-reef/",
+      "venue": "Reef Fleet Terminal, Cairns",
+      "category": "Adventure"
+    },
+    {
+      "title": "Skyrail Rainforest Cableway",
+      "description": "7.5km gondola flight above the canopy of the World Heritage Wet Tropics rainforest to Kuranda Village. Two boardwalk stations and a ranger-guided rainforest walk en route.",
+      "image": "https://images.unsplash.com/photo-1597007030739-6d2e7172ee6a?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.skyrail.com.au/",
+      "venue": "Smithfield Terminal, Skyrail Drive",
+      "category": "Adventure"
+    },
+    {
+      "title": "Kuranda Scenic Railway",
+      "description": "1891 mountain railway that climbs from Cairns through 15 hand-cut tunnels and over 37 bridges to the village of Kuranda. Pair with Skyrail for a one-way each direction.",
+      "image": "https://images.unsplash.com/photo-1593417533404-7c66fd0a3a44?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.ksr.com.au/",
+      "venue": "Bunda Street, Cairns",
+      "category": "Landmark"
+    },
+    {
+      "title": "Crystal Cascades Swimming Holes",
+      "description": "30 minutes from town in Lamb Range — a chain of freshwater swimming holes connected by an easy 1.2km path. Crocodile-free, with picnic tables at the entrance.",
+      "image": "https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://parks.des.qld.gov.au/",
+      "venue": "Redlynch Intake Road, Redlynch",
+      "category": "Outdoors"
+    }
+  ],
+  "recurring": {
+    "SATURDAY": [
+      {
+        "title": "Rusty's Markets",
+        "description": "Cairns' iconic tropical produce market, in continuous operation since 1975. Mangoes, mangosteens, dragon fruit, fresh juices and Asian street food. Friday-Sunday from 5am-6pm.",
+        "image": "https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://rustysmarkets.com.au/",
+        "venue": "57-89 Grafton Street, Cairns",
+        "category": "Markets"
+      }
+    ],
+    "SUNDAY": [
+      {
+        "title": "Cairns Esplanade Markets",
+        "description": "Every Saturday on the Esplanade — 100+ stalls of art, jewellery, fresh juices and live buskers along the foreshore. 8am-4pm.",
+        "image": "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://cairnsesplanademarkets.com.au/",
+        "venue": "Cairns Esplanade",
+        "category": "Markets"
+      }
+    ]
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "anchors": [
+    {
+      "title": "MONA — Museum of Old and New Art",
+      "description": "David Walsh's subterranean private museum, built into a sandstone cliff on the Derwent River. Catch the camo-painted MONA ROMA ferry from Brooke Street Pier for the proper arrival. The most-visited tourist attraction in Tasmania.",
+      "image": "https://images.unsplash.com/photo-1577720580479-7d839d829c73?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://mona.net.au/",
+      "venue": "655 Main Road, Berriedale",
+      "category": "Culture"
+    },
+    {
+      "title": "Mt Wellington / kunanyi Summit Drive",
+      "description": "21km drive from the city centre to a 1,271m summit with panoramic views over Hobart, the Derwent and Storm Bay. The summit boardwalk is wheelchair-accessible. Pack a jacket — it's 10°C colder than town.",
+      "image": "https://images.unsplash.com/photo-1589330273594-fade1ee91647?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.wellingtonpark.org.au/",
+      "venue": "Pinnacle Road, kunanyi/Mt Wellington",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Battery Point & Kelly's Steps",
+      "description": "Wander Hobart's oldest residential neighbourhood — a tight grid of 19th-century cottages, lanes and rose gardens. Descend the convict-built Kelly's Steps to Salamanca and the waterfront.",
+      "image": "https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.discovertasmania.com.au/things-to-do/heritage/battery-point",
+      "venue": "Battery Point, Hobart",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Cascade Brewery Tour",
+      "description": "Australia's oldest continuously-operating brewery, established 1824. 90-minute tour of the heritage stone buildings followed by tastings of Cascade Premium Light and the brewery's seasonal range.",
+      "image": "https://images.unsplash.com/photo-1559925393-8be0ec4767c8?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://cascadebreweryco.com.au/",
+      "venue": "140 Cascade Road, South Hobart",
+      "category": "Food & Drink"
+    },
+    {
+      "title": "Tasmanian Museum & Art Gallery (TMAG)",
+      "description": "Free entry to Tasmania's state museum — natural history, colonial paintings, and exceptional Aboriginal Tasmanian collections in heritage waterfront buildings near Constitution Dock.",
+      "image": "https://images.unsplash.com/photo-1577720580479-7d839d829c73?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.tmag.tas.gov.au/",
+      "venue": "Dunn Place, Hobart",
+      "category": "Culture"
+    },
+    {
+      "title": "Hobart Waterfront Seafood",
+      "description": "Eat fish-and-chips from the floating punts at Constitution Dock, then wander the heritage warehouses of Hunter Street and the Henry Jones Art Hotel for waterfront dining.",
+      "image": "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.discovertasmania.com.au/things-to-do/eat-drink-and-be-merry",
+      "venue": "Constitution Dock, Hobart",
+      "category": "Food & Drink"
+    }
+  ],
+  "recurring": {
+    "SATURDAY": [
+      {
+        "title": "Salamanca Market",
+        "description": "Tasmania's most famous market — 300 stalls under the heritage sandstone warehouses every Saturday 8:30am-3pm. Tasmanian produce, hand-crafted whisky, woollen knitwear, leatherwork and street food.",
+        "image": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.salamancamarket.com.au/",
+        "venue": "Salamanca Place, Hobart",
+        "category": "Markets"
+      }
+    ],
+    "SUNDAY": [
+      {
+        "title": "Farm Gate Market",
+        "description": "Hobart's farmers-only market every Sunday morning on Bathurst Street. 50+ Tasmanian producers — no resellers, no imports. 8:30am-1pm.",
+        "image": "https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.farmgatemarket.com.au/",
+        "venue": "Bathurst Street, Hobart",
+        "category": "Markets"
+      }
+    ]
+  }
+}

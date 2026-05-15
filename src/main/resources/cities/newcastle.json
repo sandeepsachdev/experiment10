@@ -1,0 +1,56 @@
+{
+  "anchors": [
+    {
+      "title": "Bathers Way Coastal Walk",
+      "description": "Six kilometres of clifftop and beach path from Nobbys Lighthouse to Merewether Ocean Baths. Six surf beaches, three ocean pools, lookouts and the South Newcastle Anzac memorial along the way.",
+      "image": "https://images.unsplash.com/photo-1523428096881-5bd79d043006?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.newcastle.nsw.gov.au/explore/parks-and-recreation/bathers-way",
+      "venue": "Nobbys Beach to Merewether",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Newcastle Ocean Baths",
+      "description": "Art-deco 1922 ocean pool on the southern end of Newcastle Beach. Heritage-listed pavilion, two pools and a popular pump track. Free entry, lifeguard-supervised.",
+      "image": "https://images.unsplash.com/photo-1494791368093-85217fbbf8de?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.newcastle.nsw.gov.au/",
+      "venue": "Shortland Esplanade, Newcastle",
+      "category": "Outdoors"
+    },
+    {
+      "title": "Fort Scratchley",
+      "description": "1882 coastal defence fort on Flagstaff Hill — the only Australian fort to engage an enemy warship (a Japanese submarine in 1942). Free underground tunnel tours and panoramic views over the harbour.",
+      "image": "https://images.unsplash.com/photo-1599831004099-fa7f5a3a3a87?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.fortscratchley.com.au/",
+      "venue": "Nobbys Road, Newcastle East",
+      "category": "Culture"
+    },
+    {
+      "title": "Newcastle Museum",
+      "description": "Free regional museum in the heritage Honeysuckle railway workshops. Permanent industrial-history exhibits, a working steam engine, and a strong contemporary exhibitions program.",
+      "image": "https://images.unsplash.com/photo-1577720580479-7d839d829c73?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://www.newcastlemuseum.com.au/",
+      "venue": "6 Workshop Way, Newcastle",
+      "category": "Culture"
+    },
+    {
+      "title": "Honeysuckle Waterfront Dining",
+      "description": "Restored 19th-century wharves on the harbour edge, now a strip of waterfront restaurants, bars and the Honeysuckle Hotel. Ten minutes' walk from Newcastle Interchange.",
+      "image": "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1200&q=80",
+      "url": "https://visitnewcastle.com.au/",
+      "venue": "Honeysuckle Drive, Newcastle",
+      "category": "Food & Drink"
+    }
+  ],
+  "recurring": {
+    "SUNDAY": [
+      {
+        "title": "Newcastle City Farmers Market",
+        "description": "Every Sunday morning at Newcastle Showground. 70+ Hunter Valley producers, breakfast vans and live folk music. 8am-1pm.",
+        "image": "https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1200&q=80",
+        "url": "https://www.newcastlecityfarmersmarket.com.au/",
+        "venue": "Newcastle Showground, Broadmeadow",
+        "category": "Markets"
+      }
+    ]
+  }
+}
