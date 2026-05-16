@@ -109,6 +109,7 @@ public class CuratedDataLoader {
         e.setVenue(text(n, "venue"));
         e.setCategory(text(n, "category"));
         e.setSource("Curated " + city.name() + " Highlights");
+        e.setCurated(true);
         return e;
     }
 

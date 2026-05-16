@@ -13,6 +13,7 @@ public class Event {
     private String venue;
     private String category;
     private String source;
+    private boolean curated;
 
     public Event() {}
 
@@ -42,6 +43,9 @@ public class Event {
 
     public String getSource() { return source; }
     public void setSource(String source) { this.source = source; }
+
+    public boolean isCurated() { return curated; }
+    public void setCurated(boolean curated) { this.curated = curated; }
 
     public boolean occursOn(LocalDate date) {
         if (startDate == null) return false;

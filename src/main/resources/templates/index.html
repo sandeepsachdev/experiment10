@@ -32,6 +32,12 @@
     </div>
 </header>
 
+<div class="curated-bar">
+    <button class="curated-toggle" id="curatedToggle" onclick="toggleCurated()">
+        Show well-known highlights
+    </button>
+</div>
+
 <nav class="day-nav">
     <a th:each="d : ${days}"
        th:href="'#day-' + ${d.date}"
@@ -79,7 +85,7 @@
         </div>
 
         <div class="events-grid" th:if="${!d.events.isEmpty()}">
-            <article class="event-card" th:each="ev : ${d.events}">
+            <article th:classappend="${ev.curated} ? 'event-card--curated' : ''" class="event-card" th:each="ev : ${d.events}">
                 <a class="event-img-link"
                    th:href="${ev.url} ?: '#'"
                    target="_blank" rel="noopener">
@@ -123,5 +129,20 @@
     </p>
 </footer>
 
+<script>
+    function toggleCurated() {
+        var showing = document.body.classList.toggle('show-curated');
+        localStorage.setItem('showCurated', showing ? '1' : '0');
+        document.getElementById('curatedToggle').textContent =
+            showing ? 'Hide well-known highlights' : 'Show well-known highlights';
+    }
+    (function() {
+        if (localStorage.getItem('showCurated') === '1') {
+            document.body.classList.add('show-curated');
+            var btn = document.getElementById('curatedToggle');
+            if (btn) btn.textContent = 'Hide well-known highlights';
+        }
+    })();
+</script>
 </body>
 </html>

@@ -100,6 +100,39 @@ a { color: var(--harbour); }
     border-radius: 6px;
 }
 
+/* Curated toggle bar */
+.curated-bar {
+    display: flex;
+    justify-content: center;
+    padding: 0.6rem 1rem;
+    background: var(--sand);
+    border-bottom: 1px solid var(--line);
+}
+.curated-toggle {
+    appearance: none;
+    border: 1.5px solid var(--harbour);
+    background: white;
+    color: var(--harbour);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.35rem 1rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+.curated-toggle:hover {
+    background: var(--harbour);
+    color: white;
+}
+
+/* Curated cards: hidden by default, shown when body.show-curated */
+.event-card--curated {
+    display: none;
+}
+body.show-curated .event-card--curated {
+    display: flex;
+}
+
 /* Day navigation */
 .day-nav {
     position: sticky;
