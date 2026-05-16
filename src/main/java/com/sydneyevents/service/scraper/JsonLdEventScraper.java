@@ -17,18 +17,25 @@ import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Generic scraper that reads JSON-LD schema.org/Event blocks from
- * Sydney-specific tourism / venue pages.
+ * city-specific tourism / venue pages.
  */
 @Component
 public class JsonLdEventScraper implements EventScraper {
     private static final Logger log = LoggerFactory.getLogger(JsonLdEventScraper.class);
 
-    private static final List<String> URLS = List.of(
-            "https://www.sydney.com/events",
-            "https://www.sydneyoperahouse.com/whats-on.html"
+    private static final Map<String, List<String>> CITY_URLS = Map.of(
+            "sydney", List.of(
+                    "https://www.sydney.com/events",
+                    "https://www.sydneyoperahouse.com/whats-on.html"
+            ),
+            "melbourne", List.of(
+                    "https://www.artscentremelbourne.com.au/whats-on",
+                    "https://www.melbournemuseum.com.au/whats-on/"
+            )
     );
 
     private final ObjectMapper mapper = new ObjectMapper();
@@ -41,18 +48,19 @@ public class JsonLdEventScraper implements EventScraper {
 
     @Override
     public String sourceName() {
-        return "Sydney JSON-LD";
+        return "Tourism JSON-LD";
     }
 
     @Override
     public boolean supports(City city) {
-        return "sydney".equals(city.slug());
+        return CITY_URLS.containsKey(city.slug());
     }
 
     @Override
     public List<Event> scrape(City city) {
+        List<String> urls = CITY_URLS.getOrDefault(city.slug(), List.of());
         List<Event> all = new ArrayList<>();
-        for (String url : URLS) {
+        for (String url : urls) {
             try {
                 log.info("JsonLd request: GET {}", url);
                 Document doc = Jsoup.connect(url)
@@ -128,7 +136,11 @@ public class JsonLdEventScraper implements EventScraper {
             e.setVenue(location.asText());
         }
 
-        e.setSource(pageUrl.contains("operahouse") ? "Sydney Opera House" : "Destination NSW");
+        String source = pageUrl.contains("operahouse") ? "Sydney Opera House"
+                : pageUrl.contains("artscentremelbourne") ? "Arts Centre Melbourne"
+                : pageUrl.contains("melbournemuseum") ? "Melbourne Museum"
+                : "Destination NSW";
+        e.setSource(source);
         e.setCategory("Featured");
         return e;
     }
