@@ -43,19 +43,21 @@ public class EmailService {
     }
 
     public void sendAlert(List<TrendingTopic> topics) {
-        if (apiKey == null || apiKey.isBlank()) {
-            log.warn("RESEND_API_KEY not configured — skipping email alert for {} topics", topics.size());
-            return;
-        }
-        if (recipient == null || recipient.isBlank()) {
-            log.warn("ALERT_RECIPIENT not configured — skipping email alert");
-            return;
-        }
-
         String subject = topics.size() == 1
                 ? "Trending: " + topics.get(0).topic()
                 : topics.size() + " new trending topics";
-        String html = renderHtml(topics);
+        sendEmail(subject, renderHtml(topics));
+    }
+
+    public boolean sendEmail(String subject, String html) {
+        if (apiKey == null || apiKey.isBlank()) {
+            log.warn("RESEND_API_KEY not configured — skipping email '{}'", subject);
+            return false;
+        }
+        if (recipient == null || recipient.isBlank()) {
+            log.warn("ALERT_RECIPIENT not configured — skipping email '{}'", subject);
+            return false;
+        }
 
         String body = """
                 {
@@ -75,13 +77,14 @@ public class EmailService {
         try {
             HttpResponse<String> resp = http.send(req, HttpResponse.BodyHandlers.ofString());
             if (resp.statusCode() >= 200 && resp.statusCode() < 300) {
-                log.info("Sent alert email for {} topics", topics.size());
-            } else {
-                log.error("Resend API returned {}: {}", resp.statusCode(), resp.body());
+                log.info("Sent email '{}'", subject);
+                return true;
             }
+            log.error("Resend API returned {} for '{}': {}", resp.statusCode(), subject, resp.body());
         } catch (Exception e) {
-            log.error("Failed to send alert email", e);
+            log.error("Failed to send email '{}'", subject, e);
         }
+        return false;
     }
 
     private String renderHtml(List<TrendingTopic> topics) {

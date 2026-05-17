@@ -11,6 +11,19 @@ reserve") extracted from article titles and descriptions. A topic is
 **trending** when it appears in articles from at least `trending.minSources`
 distinct feeds (default 2) during a poll cycle.
 
+## Lifecycle emails
+
+In addition to trending-topic alerts, the app emails on three lifecycle
+events (same recipient, same Resend setup):
+
+- **App started** — sent once Spring finishes startup.
+- **App stopped** — sent via `@PreDestroy` on SIGTERM. (If the container is
+  SIGKILL'd, the email can't be sent.)
+- **App pause detected** — a heartbeat thread wakes every 30s and watches
+  for wall-clock gaps. Anything larger than 60s past the expected wake time
+  is treated as a pause (host hibernated, container throttled) and the
+  detected pause duration is emailed.
+
 ## Baseline behaviour
 
 On startup the app runs **one full sweep** across every feed and records
