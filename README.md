@@ -67,15 +67,16 @@ is being phased out and deliverability degrades fast.
 All settings in `src/main/resources/application.properties` are overridable
 via env vars:
 
-| Property              | Env var           | Default                                        |
-|-----------------------|-------------------|------------------------------------------------|
-| `trending.poll.cron`  | —                 | `0 */15 * * * *` (every 15 min)                |
-| `trending.minSources` | —                 | `2`                                            |
-| `trending.feeds`      | —                 | BBC, Guardian, NPR, Al Jazeera, CBS, Sky, NYT, CNBC |
-| `resend.apiKey`       | `RESEND_API_KEY`  | *(required for emails)*                        |
-| `resend.from`         | `RESEND_FROM`     | `Trending Alerts <onboarding@resend.dev>`      |
-| `alert.recipient`     | `ALERT_RECIPIENT` | *(required for emails)*                        |
+| Property                                          | Env var           | Default                                        |
+|---------------------------------------------------|-------------------|------------------------------------------------|
+| `trending.poll.intervalMinutes`                   | —                 | `15`                                           |
+| `trending.poll.initialDelayAfterBaselineSeconds`  | —                 | `60` (first poll fires 1 min after baseline)   |
+| `trending.minSources`                             | —                 | `2`                                            |
+| `trending.feeds`                                  | —                 | BBC, Guardian, NPR, Al Jazeera, CBS, Sky, NYT, CNBC |
+| `resend.apiKey`                                   | `RESEND_API_KEY`  | *(required for emails)*                        |
+| `resend.from`                                     | `RESEND_FROM`     | `Trending Alerts <onboarding@resend.dev>`      |
+| `alert.recipient`                                 | `ALERT_RECIPIENT` | *(required for emails)*                        |
 
-To change the poll interval or sources without rebuilding, set
-`TRENDING_POLL_CRON` / `TRENDING_FEEDS` in Railway (Spring relaxed binding
-will pick them up).
+The recurring poll is scheduled programmatically after the baseline sweep
+completes, so the cycle is "baseline finishes → wait 1 min → first poll →
+every 15 min thereafter" rather than aligned to wall-clock minutes.

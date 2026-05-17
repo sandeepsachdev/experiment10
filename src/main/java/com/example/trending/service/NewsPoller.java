@@ -9,7 +9,7 @@ import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -17,6 +17,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -28,7 +29,10 @@ public class NewsPoller {
     private static final Logger log = LoggerFactory.getLogger(NewsPoller.class);
 
     private final TrendingTracker tracker;
+    private final TaskScheduler taskScheduler;
     private final String feedsConfig;
+    private final long intervalMinutes;
+    private final long initialDelaySeconds;
 
     private final Map<String, String> feeds = new LinkedHashMap<>();
     private final HttpClient http = HttpClient.newBuilder()
@@ -37,9 +41,15 @@ public class NewsPoller {
             .build();
 
     public NewsPoller(TrendingTracker tracker,
-                      @Value("${trending.feeds}") String feedsConfig) {
+                      TaskScheduler taskScheduler,
+                      @Value("${trending.feeds}") String feedsConfig,
+                      @Value("${trending.poll.intervalMinutes}") long intervalMinutes,
+                      @Value("${trending.poll.initialDelayAfterBaselineSeconds}") long initialDelaySeconds) {
         this.tracker = tracker;
+        this.taskScheduler = taskScheduler;
         this.feedsConfig = feedsConfig;
+        this.intervalMinutes = intervalMinutes;
+        this.initialDelaySeconds = initialDelaySeconds;
     }
 
     @PostConstruct
@@ -53,6 +63,7 @@ public class NewsPoller {
         log.info("Configured {} news feeds: {}", feeds.size(), feeds.keySet());
 
         // Run baseline poll on startup, in a background thread so we don't block app start.
+        // Once baseline completes, the recurring poll is scheduled relative to that moment.
         Thread baseline = new Thread(this::runBaselinePoll, "baseline-poll");
         baseline.setDaemon(true);
         baseline.start();
@@ -62,14 +73,15 @@ public class NewsPoller {
         log.info("Running baseline poll across all sources — topics found here will NOT trigger alerts");
         List<NewsItem> items = pollAll();
         tracker.recordBaseline(items);
+
+        Instant firstRun = Instant.now().plusSeconds(initialDelaySeconds);
+        Duration interval = Duration.ofMinutes(intervalMinutes);
+        taskScheduler.scheduleAtFixedRate(this::scheduledPoll, firstRun, interval);
+        log.info("First scheduled poll at {} ({}s after baseline), then every {} min",
+                firstRun, initialDelaySeconds, intervalMinutes);
     }
 
-    @Scheduled(cron = "${trending.poll.cron}")
-    public void scheduledPoll() {
-        if (!tracker.isBaselineReady()) {
-            log.info("Skipping scheduled poll — baseline not yet established");
-            return;
-        }
+    private void scheduledPoll() {
         log.info("Running scheduled poll");
         List<NewsItem> items = pollAll();
         tracker.ingest(items);
