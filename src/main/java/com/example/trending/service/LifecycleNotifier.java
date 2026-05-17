@@ -7,6 +7,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -36,6 +37,7 @@ public class LifecycleNotifier {
     private final EmailService emailService;
     private final Thread heartbeatThread;
     private volatile boolean running = true;
+    private volatile Instant startedAt;
 
     public LifecycleNotifier(EmailService emailService) {
         this.emailService = emailService;
@@ -45,6 +47,7 @@ public class LifecycleNotifier {
 
     @EventListener(ApplicationReadyEvent.class)
     public void onStart() {
+        startedAt = Instant.now();
         String when = now();
         log.info("Lifecycle: app started at {}", when);
         emailService.sendEmail(
@@ -60,10 +63,16 @@ public class LifecycleNotifier {
         running = false;
         heartbeatThread.interrupt();
         String when = now();
-        log.info("Lifecycle: app stopping at {}", when);
+        String uptime = startedAt == null
+                ? "unknown (start time not recorded)"
+                : formatDuration(Duration.between(startedAt, Instant.now()));
+        log.info("Lifecycle: app stopping at {} after running for {}", when, uptime);
         emailService.sendEmail(
                 "Trending News Alerts: app stopped",
                 "<p>The app is shutting down at <strong>" + when + "</strong>.</p>"
+                        + "<p>It was running for <strong>" + uptime + "</strong>"
+                        + (startedAt == null ? "" : " (started at " + FMT.format(startedAt) + ")")
+                        + ".</p>"
         );
     }
 
@@ -98,5 +107,20 @@ public class LifecycleNotifier {
 
     private static String now() {
         return FMT.format(Instant.now());
+    }
+
+    static String formatDuration(Duration d) {
+        long totalSeconds = Math.max(0, d.getSeconds());
+        long days = totalSeconds / 86400;
+        long hours = (totalSeconds % 86400) / 3600;
+        long minutes = (totalSeconds % 3600) / 60;
+        long seconds = totalSeconds % 60;
+
+        StringBuilder sb = new StringBuilder();
+        if (days > 0) sb.append(days).append("d ");
+        if (hours > 0 || days > 0) sb.append(hours).append("h ");
+        if (minutes > 0 || hours > 0 || days > 0) sb.append(minutes).append("m ");
+        sb.append(seconds).append("s");
+        return sb.toString();
     }
 }
