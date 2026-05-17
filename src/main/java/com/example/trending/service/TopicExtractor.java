@@ -8,29 +8,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Extracts proper-noun phrases (capitalised word sequences) from a headline.
- * Crude but effective for surfacing entities like "Donald Trump", "Gaza", "Federal Reserve".
+ * Extracts multi-word proper-noun phrases (two or more capitalised words)
+ * from a headline — e.g. "donald trump", "federal reserve", "white house".
+ * Single-word entities are intentionally ignored.
  */
 @Service
 public class TopicExtractor {
 
     private static final Pattern PROPER_NOUN_PHRASE =
-            Pattern.compile("\\b([A-Z][a-z'’]+(?:\\s+(?:of\\s+|the\\s+|and\\s+|for\\s+)?[A-Z][a-z'’]+)*)\\b");
-
-    private static final Set<String> STOPWORDS = Set.of(
-            "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday",
-            "january", "february", "march", "april", "may", "june", "july",
-            "august", "september", "october", "november", "december",
-            "the", "a", "an", "and", "or", "but", "in", "on", "at", "to", "for",
-            "of", "with", "by", "from", "up", "about", "into", "over", "after",
-            "new", "old", "first", "last", "this", "that", "these", "those",
-            "what", "who", "where", "when", "why", "how", "is", "are", "was", "were",
-            "i", "you", "he", "she", "it", "we", "they", "my", "your", "his", "her",
-            "us", "them", "live", "video", "watch", "news", "update", "updates",
-            "report", "reports", "exclusive", "opinion", "analysis", "breaking",
-            "today", "yesterday", "tomorrow", "year", "years", "day", "days",
-            "mr", "mrs", "ms", "dr"
-    );
+            Pattern.compile("\\b([A-Z][a-z'’]+(?:\\s+(?:of\\s+|the\\s+|and\\s+|for\\s+)?[A-Z][a-z'’]+)+)\\b");
 
     public Set<String> extract(String text) {
         Set<String> topics = new HashSet<>();
@@ -40,11 +26,7 @@ public class TopicExtractor {
         while (m.find()) {
             String phrase = normalise(m.group(1));
             if (phrase == null) continue;
-            if (phrase.length() < 3) continue;
-
-            // Single-word phrase must not be a stopword
-            if (!phrase.contains(" ") && STOPWORDS.contains(phrase)) continue;
-
+            if (!phrase.contains(" ")) continue; // require >= 2 words after normalisation
             topics.add(phrase);
         }
         return topics;
