@@ -14,7 +14,8 @@ public class TrendingController {
 
     private final TrendingTracker tracker;
     private final DateTimeFormatter fmt =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss z", Locale.ENGLISH).withZone(ZoneId.of("UTC"));
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss z", Locale.ENGLISH)
+                    .withZone(ZoneId.of("Australia/Sydney"));
 
     public TrendingController(TrendingTracker tracker) {
         this.tracker = tracker;

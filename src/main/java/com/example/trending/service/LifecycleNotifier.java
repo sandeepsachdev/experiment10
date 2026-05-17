@@ -30,7 +30,8 @@ public class LifecycleNotifier {
     private static final long PAUSE_THRESHOLD_MS = 60_000L;
 
     private static final DateTimeFormatter FMT =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss z", Locale.ENGLISH).withZone(ZoneId.of("UTC"));
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss z", Locale.ENGLISH)
+                    .withZone(ZoneId.of("Australia/Sydney"));
 
     private final EmailService emailService;
     private final Thread heartbeatThread;
