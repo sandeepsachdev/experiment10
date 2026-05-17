@@ -14,10 +14,11 @@ distinct feeds (default 2) during a poll cycle.
 ## Baseline behaviour
 
 On startup the app runs **one full sweep** across every feed and records
-every currently-trending topic as the *baseline*. Those topics will never
-trigger an email or appear in the dashboard, even if they keep trending.
-Only topics that cross the threshold on a **later** poll are considered
-"new" — and each new topic is alerted exactly once.
+every currently-trending topic as the *baseline*. Baseline topics are
+**shown on the dashboard** (tagged `baseline`) so you can see what's
+trending right now, but they **do not** trigger emails. Only topics that
+cross the threshold on a **later** poll are considered "new" — those are
+tagged `new`, listed on the dashboard, and emailed exactly once.
 
 ## Running locally
 

@@ -8,6 +8,7 @@ public record TrendingTopic(
         Instant firstDetected,
         int sourceCount,
         List<String> sources,
-        List<NewsItem> sampleArticles
+        List<NewsItem> sampleArticles,
+        boolean fromBaseline
 ) {
 }

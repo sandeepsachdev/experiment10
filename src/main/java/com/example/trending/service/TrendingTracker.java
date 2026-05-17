@@ -50,14 +50,23 @@ public class TrendingTracker {
 
     public synchronized void recordBaseline(List<NewsItem> items) {
         Map<String, TopicAggregate> agg = aggregate(items);
-        for (Map.Entry<String, TopicAggregate> e : agg.entrySet()) {
-            if (e.getValue().sources.size() >= minSources) {
-                baselineTopics.add(e.getKey());
-            }
-        }
         startedAt = Instant.now();
+        for (Map.Entry<String, TopicAggregate> e : agg.entrySet()) {
+            if (e.getValue().sources.size() < minSources) continue;
+            String topic = e.getKey();
+            TopicAggregate a = e.getValue();
+            baselineTopics.add(topic);
+            newlyTrending.put(topic, new TrendingTopic(
+                    topic,
+                    startedAt,
+                    a.sources.size(),
+                    new ArrayList<>(a.sources),
+                    a.articles.stream().limit(3).toList(),
+                    true
+            ));
+        }
         baselineReady.set(true);
-        log.info("Baseline established: {} trending topics ignored (will not alert). Examples: {}",
+        log.info("Baseline established: {} trending topics shown on dashboard but not emailed. Examples: {}",
                 baselineTopics.size(),
                 baselineTopics.stream().limit(10).toList());
     }
@@ -78,7 +87,8 @@ public class TrendingTracker {
                     Instant.now(),
                     a.sources.size(),
                     new ArrayList<>(a.sources),
-                    a.articles.stream().limit(3).toList()
+                    a.articles.stream().limit(3).toList(),
+                    false
             );
             newlyTrending.put(topic, tt);
             brandNew.add(tt);

@@ -13,7 +13,12 @@
                          border: 1px solid #ffeaa6; margin-bottom: 1rem; }
         .topic { border: 1px solid #ddd; border-radius: 8px; padding: 1rem 1.2rem;
                  margin-bottom: 1rem; background: #fafafa; }
-        .topic h2 { margin: 0 0 0.3rem; text-transform: capitalize; }
+        .topic h2 { margin: 0 0 0.3rem; text-transform: capitalize;
+                    display: flex; align-items: center; gap: 0.6rem; }
+        .badge { font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 999px;
+                 text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+        .badge-new { background: #d1f7c4; color: #1a6b00; }
+        .badge-baseline { background: #e8e8e8; color: #555; }
         .topic .when { color: #888; font-size: 0.85rem; }
         .topic .sources { color: #555; font-size: 0.9rem; margin-top: 0.3rem; }
         .topic ul { margin: 0.6rem 0 0; padding-left: 1.2rem; }
@@ -31,19 +36,27 @@
 </p>
 
 <div th:if="${!baselineReady}" class="baseline-warn">
-    Baseline poll still in progress. Topics that are already trending right now will be
-    ignored (no alerts) — only topics that become trending <em>after</em> this initial
-    sweep will appear here and trigger emails.
+    Baseline poll still in progress. Topics already trending at startup will be
+    shown below tagged <em>baseline</em> but will <strong>not</strong> trigger emails.
+    Only topics that newly cross the threshold after this initial sweep get
+    emailed.
 </div>
 
 <div th:if="${baselineReady and #lists.isEmpty(topics)}" class="empty">
-    No new trending topics yet. Check back after the next poll cycle.
+    No trending topics yet. Check back after the next poll cycle.
 </div>
 
 <div th:each="t : ${topics}" class="topic">
-    <h2 th:text="${t.topic}">topic</h2>
+    <h2>
+        <span th:text="${t.topic}">topic</span>
+        <span th:if="${t.fromBaseline}" class="badge badge-baseline">baseline</span>
+        <span th:unless="${t.fromBaseline}" class="badge badge-new">new</span>
+    </h2>
     <div class="when">
-        Started trending at <span th:text="${fmt.format(t.firstDetected)}">…</span>
+        <span th:if="${t.fromBaseline}">Trending at startup —
+            <span th:text="${fmt.format(t.firstDetected)}">…</span></span>
+        <span th:unless="${t.fromBaseline}">Started trending at
+            <span th:text="${fmt.format(t.firstDetected)}">…</span></span>
     </div>
     <div class="sources">
         Seen across <strong th:text="${t.sourceCount}">2</strong> sources:
