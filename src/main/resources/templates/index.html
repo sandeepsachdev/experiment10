@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Trending News Alerts</title>
+    <meta http-equiv="refresh" content="60"/>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+               max-width: 900px; margin: 2rem auto; padding: 0 1rem; color: #222; }
+        h1 { margin-bottom: 0.2rem; }
+        .meta { color: #666; font-size: 0.9rem; margin-bottom: 2rem; }
+        .baseline-warn { background: #fff3cd; padding: 0.6rem 1rem; border-radius: 6px;
+                         border: 1px solid #ffeaa6; margin-bottom: 1rem; }
+        .topic { border: 1px solid #ddd; border-radius: 8px; padding: 1rem 1.2rem;
+                 margin-bottom: 1rem; background: #fafafa; }
+        .topic h2 { margin: 0 0 0.3rem; text-transform: capitalize; }
+        .topic .when { color: #888; font-size: 0.85rem; }
+        .topic .sources { color: #555; font-size: 0.9rem; margin-top: 0.3rem; }
+        .topic ul { margin: 0.6rem 0 0; padding-left: 1.2rem; }
+        .topic li { margin-bottom: 0.2rem; font-size: 0.95rem; }
+        .empty { color: #888; font-style: italic; padding: 2rem 0; text-align: center; }
+        a { color: #0366d6; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<h1>Trending News Alerts</h1>
+<p class="meta">
+    Monitoring since <span th:text="${startedAt}">…</span>.
+    Auto-refreshes every 60s.
+</p>
+
+<div th:if="${!baselineReady}" class="baseline-warn">
+    Baseline poll still in progress. Topics that are already trending right now will be
+    ignored (no alerts) — only topics that become trending <em>after</em> this initial
+    sweep will appear here and trigger emails.
+</div>
+
+<div th:if="${baselineReady and #lists.isEmpty(topics)}" class="empty">
+    No new trending topics yet. Check back after the next poll cycle.
+</div>
+
+<div th:each="t : ${topics}" class="topic">
+    <h2 th:text="${t.topic}">topic</h2>
+    <div class="when">
+        Started trending at <span th:text="${fmt.format(t.firstDetected)}">…</span>
+    </div>
+    <div class="sources">
+        Seen across <strong th:text="${t.sourceCount}">2</strong> sources:
+        <span th:text="${#strings.listJoin(t.sources, ', ')}">…</span>
+    </div>
+    <ul th:if="${not #lists.isEmpty(t.sampleArticles)}">
+        <li th:each="a : ${t.sampleArticles}">
+            <a th:href="${a.link}" th:text="${a.title}" target="_blank" rel="noopener">title</a>
+            <em th:text="'(' + ${a.source} + ')'">(src)</em>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
