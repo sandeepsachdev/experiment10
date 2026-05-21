@@ -40,6 +40,10 @@ public class TopicExtractor {
                 || trimmed.endsWith(" and") || trimmed.endsWith(" for")) {
             trimmed = trimmed.substring(0, trimmed.lastIndexOf(' '));
         }
-        return trimmed.isBlank() ? null : trimmed;
+        // strip punctuation so "trump's" and "trumps" collapse to the same topic
+        String stripped = trimmed.replaceAll("[^\\p{L}\\p{Nd}\\s]", "")
+                .replaceAll("\\s+", " ")
+                .trim();
+        return stripped.isBlank() ? null : stripped;
     }
 }
