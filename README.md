@@ -99,3 +99,34 @@ via env vars:
 The recurring poll is scheduled programmatically after the baseline sweep
 completes, so the cycle is "baseline finishes → wait 1 min → first poll →
 every 15 min thereafter" rather than aligned to wall-clock minutes.
+
+## Development prompts
+
+This app was built iteratively from the following prompts, verbatim and in
+order:
+
+1. Create a spring boot app that can email me when a new topic is trending
+   in the news. Let me know the best way to send email on railway. It should
+   also provide a user interface showing the new trending topicss since it
+   starting running and a time when they started trending. Don't show or
+   email about topics that were the trending when the app started but only
+   topics which started trending after all news sources where polled once.
+   You decide what is a trending topic. It just appear on multiple news
+   feeds.
+2. Are you running ?
+3. Hrllo
+4. Don't send an email but do show current trending topics on startup.
+5. Start the first of the the 15 minute refresh cycle happening 1 min after
+   the baseline
+6. Send an email every time the app is started or stopped or it is detected
+   the app was paused
+7. Can you change trending topics to consist of two words or more.
+8. Show times on Sydney time
+9. Make the web interface display better on mobile
+10. When se being the shutdown email include in the email how long the app
+    was running for before being shutdown
+11. Strip punctuation from trending topics so topics with and without
+    function like apostrophes are treated the same
+12. Trending topics must come from news sources in different countries to
+    qualify as tending
+13. Add all prompts to the the readme
