@@ -17,6 +17,15 @@ surface across borders.
 Each feed in `trending.feeds` is tagged with a country, so the bundled
 sources span the UK, US, Qatar, Australia, Germany and France.
 
+### Subset topics
+
+When one trending topic's words are a subset of another's — e.g.
+"donald trump" and "donald trump tariffs" — they are treated as a single
+topic. Their feed coverage is combined and the broadest-reaching phrase is
+used as the label, so you get one alert and one dashboard entry instead of
+several near-duplicates. This also holds across polls: a topic that is a
+subset (or superset) of one already seen does not produce a fresh alert.
+
 ## Lifecycle emails
 
 In addition to trending-topic alerts, the app emails on three lifecycle
@@ -130,3 +139,5 @@ order:
 12. Trending topics must come from news sources in different countries to
     qualify as tending
 13. Add all prompts to the the readme
+14. Consider trending topics which are a subset of other trending topics
+    the same topic
