@@ -88,7 +88,9 @@
             <span th:text="${fmt.format(t.firstDetected)}">…</span></span>
     </div>
     <div class="sources">
-        Seen across <strong th:text="${t.sourceCount}">2</strong> sources:
+        Seen in <strong th:text="${t.countryCount}">2</strong> countries
+        (<span th:text="${#strings.listJoin(t.countries, ', ')}">…</span>) —
+        <strong th:text="${t.sourceCount}">2</strong> sources:
         <span th:text="${#strings.listJoin(t.sources, ', ')}">…</span>
     </div>
     <ul th:if="${not #lists.isEmpty(t.sampleArticles)}">

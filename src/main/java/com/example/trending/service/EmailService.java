@@ -91,8 +91,10 @@ public class EmailService {
         StringBuilder sb = new StringBuilder();
         sb.append("<h2>New trending topics</h2><ul>");
         for (TrendingTopic t : topics) {
-            sb.append("<li><strong>").append(escape(t.topic())).append("</strong> — across ")
-                    .append(t.sourceCount()).append(" sources (")
+            sb.append("<li><strong>").append(escape(t.topic())).append("</strong> — in ")
+                    .append(t.countryCount()).append(" countries (")
+                    .append(escape(String.join(", ", t.countries())))
+                    .append("), across ").append(t.sourceCount()).append(" sources (")
                     .append(escape(String.join(", ", t.sources()))).append(")");
             if (!t.sampleArticles().isEmpty()) {
                 sb.append("<ul>");

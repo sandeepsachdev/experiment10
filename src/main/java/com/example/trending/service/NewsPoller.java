@@ -19,14 +19,16 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class NewsPoller {
 
     private static final Logger log = LoggerFactory.getLogger(NewsPoller.class);
+
+    /** A configured feed: display name, country of origin, RSS URL. */
+    private record Feed(String name, String country, String url) {
+    }
 
     private final TrendingTracker tracker;
     private final TaskScheduler taskScheduler;
@@ -34,7 +36,7 @@ public class NewsPoller {
     private final long intervalMinutes;
     private final long initialDelaySeconds;
 
-    private final Map<String, String> feeds = new LinkedHashMap<>();
+    private final List<Feed> feeds = new ArrayList<>();
     private final HttpClient http = HttpClient.newBuilder()
             .connectTimeout(Duration.ofSeconds(10))
             .followRedirects(HttpClient.Redirect.NORMAL)
@@ -56,11 +58,15 @@ public class NewsPoller {
     void init() {
         for (String entry : feedsConfig.split(",")) {
             String trimmed = entry.trim();
-            int pipe = trimmed.indexOf('|');
-            if (pipe <= 0) continue;
-            feeds.put(trimmed.substring(0, pipe).trim(), trimmed.substring(pipe + 1).trim());
+            // format: name|country|url
+            String[] parts = trimmed.split("\\|", 3);
+            if (parts.length < 3) continue;
+            feeds.add(new Feed(parts[0].trim(), parts[1].trim(), parts[2].trim()));
         }
-        log.info("Configured {} news feeds: {}", feeds.size(), feeds.keySet());
+        log.info("Configured {} news feeds across {} countries: {}",
+                feeds.size(),
+                feeds.stream().map(Feed::country).distinct().count(),
+                feeds.stream().map(f -> f.name() + " (" + f.country() + ")").toList());
 
         // Run baseline poll on startup, in a background thread so we don't block app start.
         // Once baseline completes, the recurring poll is scheduled relative to that moment.
@@ -89,19 +95,19 @@ public class NewsPoller {
 
     private List<NewsItem> pollAll() {
         List<NewsItem> all = new ArrayList<>();
-        for (Map.Entry<String, String> feed : feeds.entrySet()) {
+        for (Feed feed : feeds) {
             try {
-                all.addAll(fetchFeed(feed.getKey(), feed.getValue()));
+                all.addAll(fetchFeed(feed));
             } catch (Exception e) {
-                log.warn("Failed to poll {} ({}): {}", feed.getKey(), feed.getValue(), e.getMessage());
+                log.warn("Failed to poll {} ({}): {}", feed.name(), feed.url(), e.getMessage());
             }
         }
         log.info("Polled {} items across {} sources", all.size(), feeds.size());
         return all;
     }
 
-    private List<NewsItem> fetchFeed(String source, String url) throws Exception {
-        HttpRequest req = HttpRequest.newBuilder(URI.create(url))
+    private List<NewsItem> fetchFeed(Feed feed) throws Exception {
+        HttpRequest req = HttpRequest.newBuilder(URI.create(feed.url()))
                 .timeout(Duration.ofSeconds(15))
                 .header("User-Agent", "trending-news-alerts/1.0 (+https://github.com)")
                 .GET()
@@ -111,13 +117,15 @@ public class NewsPoller {
             throw new RuntimeException("HTTP " + resp.statusCode());
         }
         try (XmlReader reader = new XmlReader(new java.io.ByteArrayInputStream(resp.body()))) {
-            SyndFeed feed = new SyndFeedInput().build(reader);
+            SyndFeed syndFeed = new SyndFeedInput().build(reader);
             List<NewsItem> items = new ArrayList<>();
-            for (SyndEntry entry : feed.getEntries()) {
+            for (SyndEntry entry : syndFeed.getEntries()) {
                 String title = entry.getTitle();
                 String description = entry.getDescription() == null ? "" : entry.getDescription().getValue();
                 String link = entry.getLink();
-                if (title != null) items.add(new NewsItem(source, title, description, link));
+                if (title != null) {
+                    items.add(new NewsItem(feed.name(), feed.country(), title, description, link));
+                }
             }
             return items;
         }

@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -25,7 +26,7 @@ public class TrendingTracker {
 
     private final TopicExtractor extractor;
     private final EmailService emailService;
-    private final int minSources;
+    private final int minCountries;
 
     private final Set<String> baselineTopics = ConcurrentHashMap.newKeySet();
     private final Map<String, TrendingTopic> newlyTrending = new ConcurrentHashMap<>();
@@ -34,10 +35,10 @@ public class TrendingTracker {
 
     public TrendingTracker(TopicExtractor extractor,
                            EmailService emailService,
-                           @Value("${trending.minSources}") int minSources) {
+                           @Value("${trending.minCountries}") int minCountries) {
         this.extractor = extractor;
         this.emailService = emailService;
-        this.minSources = minSources;
+        this.minCountries = minCountries;
     }
 
     public boolean isBaselineReady() {
@@ -52,18 +53,10 @@ public class TrendingTracker {
         Map<String, TopicAggregate> agg = aggregate(items);
         startedAt = Instant.now();
         for (Map.Entry<String, TopicAggregate> e : agg.entrySet()) {
-            if (e.getValue().sources.size() < minSources) continue;
+            if (!isTrending(e.getValue())) continue;
             String topic = e.getKey();
-            TopicAggregate a = e.getValue();
             baselineTopics.add(topic);
-            newlyTrending.put(topic, new TrendingTopic(
-                    topic,
-                    startedAt,
-                    a.sources.size(),
-                    new ArrayList<>(a.sources),
-                    a.articles.stream().limit(3).toList(),
-                    true
-            ));
+            newlyTrending.put(topic, toTrendingTopic(topic, e.getValue(), startedAt, true));
         }
         baselineReady.set(true);
         log.info("Baseline established: {} trending topics shown on dashboard but not emailed. Examples: {}",
@@ -77,19 +70,11 @@ public class TrendingTracker {
 
         for (Map.Entry<String, TopicAggregate> e : agg.entrySet()) {
             String topic = e.getKey();
-            TopicAggregate a = e.getValue();
-            if (a.sources.size() < minSources) continue;
+            if (!isTrending(e.getValue())) continue;
             if (baselineTopics.contains(topic)) continue;
             if (newlyTrending.containsKey(topic)) continue;
 
-            TrendingTopic tt = new TrendingTopic(
-                    topic,
-                    Instant.now(),
-                    a.sources.size(),
-                    new ArrayList<>(a.sources),
-                    a.articles.stream().limit(3).toList(),
-                    false
-            );
+            TrendingTopic tt = toTrendingTopic(topic, e.getValue(), Instant.now(), false);
             newlyTrending.put(topic, tt);
             brandNew.add(tt);
         }
@@ -107,6 +92,24 @@ public class TrendingTracker {
                 .toList();
     }
 
+    /** A topic trends only when it surfaces in feeds from multiple countries. */
+    private boolean isTrending(TopicAggregate a) {
+        return a.countries.size() >= minCountries;
+    }
+
+    private TrendingTopic toTrendingTopic(String topic, TopicAggregate a, Instant when, boolean fromBaseline) {
+        return new TrendingTopic(
+                topic,
+                when,
+                a.countries.size(),
+                new ArrayList<>(new TreeSet<>(a.countries)),
+                a.sources.size(),
+                new ArrayList<>(new TreeSet<>(a.sources)),
+                a.articles.stream().limit(3).toList(),
+                fromBaseline
+        );
+    }
+
     private Map<String, TopicAggregate> aggregate(List<NewsItem> items) {
         Map<String, TopicAggregate> agg = new HashMap<>();
         for (NewsItem item : items) {
@@ -114,6 +117,7 @@ public class TrendingTracker {
             for (String topic : topics) {
                 TopicAggregate a = agg.computeIfAbsent(topic, k -> new TopicAggregate());
                 a.sources.add(item.source());
+                a.countries.add(item.country());
                 a.articles.add(item);
             }
         }
@@ -122,6 +126,7 @@ public class TrendingTracker {
 
     private static class TopicAggregate {
         final Set<String> sources = new HashSet<>();
+        final Set<String> countries = new HashSet<>();
         final List<NewsItem> articles = new ArrayList<>();
     }
 }

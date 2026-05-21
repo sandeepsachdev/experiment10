@@ -6,10 +6,16 @@ shows the running list in a small web dashboard.
 
 ## How "trending" is defined
 
-A **topic** is a proper-noun phrase (e.g. "donald trump", "gaza", "federal
-reserve") extracted from article titles and descriptions. A topic is
-**trending** when it appears in articles from at least `trending.minSources`
-distinct feeds (default 2) during a poll cycle.
+A **topic** is a multi-word proper-noun phrase (e.g. "donald trump",
+"federal reserve", "white house") extracted from article titles and
+descriptions. A topic is **trending** when it appears in feeds based in at
+least `trending.minCountries` **different countries** (default 2) during a
+poll cycle. Two outlets from the same country (e.g. BBC and the Guardian,
+both UK) do not on their own make a topic trend — the same story must
+surface across borders.
+
+Each feed in `trending.feeds` is tagged with a country, so the bundled
+sources span the UK, US, Qatar, Australia, Germany and France.
 
 ## Lifecycle emails
 
@@ -84,8 +90,8 @@ via env vars:
 |---------------------------------------------------|-------------------|------------------------------------------------|
 | `trending.poll.intervalMinutes`                   | —                 | `15`                                           |
 | `trending.poll.initialDelayAfterBaselineSeconds`  | —                 | `60` (first poll fires 1 min after baseline)   |
-| `trending.minSources`                             | —                 | `2`                                            |
-| `trending.feeds`                                  | —                 | BBC, Guardian, NPR, Al Jazeera, CBS, Sky, NYT, CNBC |
+| `trending.minCountries`                           | —                 | `2` (distinct countries required to trend)     |
+| `trending.feeds`                                  | —                 | 11 feeds (`name\|country\|url`) across 6 countries |
 | `resend.apiKey`                                   | `RESEND_API_KEY`  | *(required for emails)*                        |
 | `resend.from`                                     | `RESEND_FROM`     | `Trending Alerts <onboarding@resend.dev>`      |
 | `alert.recipient`                                 | `ALERT_RECIPIENT` | *(required for emails)*                        |
