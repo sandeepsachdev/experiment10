@@ -19,12 +19,17 @@ sources span the UK, US, Qatar, Australia, Germany and France.
 
 ### Subset topics
 
-When one trending topic's words are a subset of another's — e.g.
-"donald trump" and "donald trump tariffs" — they are treated as a single
-topic. Their feed coverage is combined and the broadest-reaching phrase is
-used as the label, so you get one alert and one dashboard entry instead of
-several near-duplicates. This also holds across polls: a topic that is a
-subset (or superset) of one already seen does not produce a fresh alert.
+When one trending topic appears as a **contiguous run of whole words**
+inside another — e.g. "donald trump" within "donald trump tariffs" — they
+are treated as a single topic. Their feed coverage is combined and the
+broadest-reaching phrase is used as the label, so you get one alert and one
+dashboard entry instead of several near-duplicates. This also holds across
+polls: a topic that is a contiguous sub-phrase (or super-phrase) of one
+already seen does not produce a fresh alert.
+
+Matching is contiguous only — a topic whose words merely overlap another
+without forming an adjacent phrase (e.g. "donald trump" vs. "donald john
+trump") is kept as a separate topic.
 
 ## Lifecycle emails
 
@@ -141,3 +146,4 @@ order:
 13. Add all prompts to the the readme
 14. Consider trending topics which are a subset of other trending topics
     the same topic
+15. Do contiguous-phrase matching only

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -31,8 +30,6 @@ public class TrendingTracker {
 
     /** Every raw topic phrase that has been part of a trending cluster (baseline or alerted). */
     private final Set<String> seenMembers = new HashSet<>();
-    /** Word sets of the seen phrases, used to detect subset/superset relationships across polls. */
-    private final List<Set<String>> seenWordSets = new ArrayList<>();
     /** Topics shown on the dashboard, keyed by the canonical name chosen at detection time. */
     private final Map<String, TrendingTopic> displayed = new ConcurrentHashMap<>();
     private final AtomicBoolean baselineReady = new AtomicBoolean(false);
@@ -60,7 +57,7 @@ public class TrendingTracker {
         int count = 0;
         for (Map.Entry<String, TopicAggregate> e : agg.entrySet()) {
             if (!isTrending(e.getValue())) continue;
-            e.getValue().members.forEach(this::markSeen);
+            seenMembers.addAll(e.getValue().members);
             displayed.put(e.getKey(), toTrendingTopic(e.getKey(), e.getValue(), startedAt, true));
             count++;
         }
@@ -76,11 +73,11 @@ public class TrendingTracker {
         for (Map.Entry<String, TopicAggregate> e : agg.entrySet()) {
             TopicAggregate a = e.getValue();
             if (!isTrending(a)) continue;
-            // Skip if this cluster is a subset/superset of (or identical to) anything
-            // already seen — that makes it "the same topic", so no fresh alert.
+            // Skip if this cluster forms a contiguous phrase within (or contains)
+            // anything already seen — that makes it "the same topic", so no fresh alert.
             if (relatedToSeen(a)) continue;
 
-            a.members.forEach(this::markSeen);
+            a.members.forEach(seenMembers::add);
             TrendingTopic tt = toTrendingTopic(e.getKey(), a, Instant.now(), false);
             displayed.put(e.getKey(), tt);
             brandNew.add(tt);
@@ -104,19 +101,11 @@ public class TrendingTracker {
         return a.countries.size() >= minCountries;
     }
 
-    private void markSeen(String phrase) {
-        if (seenMembers.add(phrase)) {
-            seenWordSets.add(wordsOf(phrase));
-        }
-    }
-
-    /** True if any member phrase is a subset/superset of (or equal to) a previously-seen phrase. */
+    /** True if any member phrase forms a contiguous whole-word phrase within (or contains) a seen phrase. */
     private boolean relatedToSeen(TopicAggregate cluster) {
         for (String member : cluster.members) {
-            if (seenMembers.contains(member)) return true;
-            Set<String> mw = wordsOf(member);
-            for (Set<String> sw : seenWordSets) {
-                if (isSubsetEither(mw, sw)) return true;
+            for (String seen : seenMembers) {
+                if (phraseContainsEither(member, seen)) return true;
             }
         }
         return false;
@@ -151,23 +140,21 @@ public class TrendingTracker {
     }
 
     /**
-     * Merge topics whose words are a subset of another topic's words — e.g.
-     * "donald trump" and "donald trump tariffs" are treated as one topic.
-     * Each merge cluster keeps the broadest-reaching member as its canonical name.
+     * Merge topics where one is a contiguous whole-word phrase within another —
+     * e.g. "donald trump" within "donald trump tariffs" are treated as one topic.
+     * A non-adjacent word overlap does NOT merge. Each cluster keeps the
+     * broadest-reaching member as its canonical name.
      */
     private Map<String, TopicAggregate> mergeSubsetTopics(Map<String, TopicAggregate> raw) {
         List<String> topics = new ArrayList<>(raw.keySet());
         int n = topics.size();
         if (n < 2) return raw;
 
-        List<Set<String>> words = new ArrayList<>(n);
-        for (String t : topics) words.add(wordsOf(t));
-
         int[] parent = new int[n];
         for (int i = 0; i < n; i++) parent[i] = i;
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
-                if (isSubsetEither(words.get(i), words.get(j))) {
+                if (phraseContainsEither(topics.get(i), topics.get(j))) {
                     union(parent, i, j);
                 }
             }
@@ -204,13 +191,15 @@ public class TrendingTracker {
         return merged;
     }
 
-    private static Set<String> wordsOf(String phrase) {
-        return new HashSet<>(Arrays.asList(phrase.split(" ")));
+    /** True if {@code a} is a contiguous whole-word phrase within {@code b}, or vice versa. */
+    private static boolean phraseContainsEither(String a, String b) {
+        return containsPhrase(a, b) || containsPhrase(b, a);
     }
 
-    /** True if {@code a} is a subset of {@code b}, or {@code b} a subset of {@code a}. */
-    private static boolean isSubsetEither(Set<String> a, Set<String> b) {
-        return a.size() <= b.size() ? b.containsAll(a) : a.containsAll(b);
+    /** True if {@code outer} contains {@code inner} as a contiguous run of whole words. */
+    private static boolean containsPhrase(String inner, String outer) {
+        return inner.equals(outer)
+                || (" " + outer + " ").contains(" " + inner + " ");
     }
 
     private static int find(int[] parent, int i) {
