@@ -31,4 +31,9 @@ public class DayView {
     public boolean isToday() {
         return date.equals(LocalDate.now(java.time.ZoneId.of("Australia/Sydney")));
     }
+
+    /** True when this day has at least one non-curated (live) event. */
+    public boolean isHasLiveEvents() {
+        return events != null && events.stream().anyMatch(e -> !e.isCurated());
+    }
 }

@@ -54,8 +54,10 @@ public class HomeController {
                     .filter(e -> e.occursOn(date))
                     .toList();
 
+            // Order: live events before curated, then short-run before long-run, then title.
             Comparator<Event> spanThenTitle = Comparator
-                    .<Event, Long>comparing(HomeController::dayCount)
+                    .<Event, Boolean>comparing(Event::isCurated)
+                    .thenComparing(HomeController::dayCount)
                     .thenComparing(Event::getTitle, Comparator.nullsLast(Comparator.naturalOrder()));
 
             List<Event> dayEvents = matching.stream()
@@ -66,11 +68,16 @@ public class HomeController {
             days.add(new DayView(date, weatherByDate.get(date), dayEvents));
         }
 
+        boolean anyCuratedHidden = days.stream()
+                .anyMatch(d -> d.isHasLiveEvents()
+                        && d.getEvents().stream().anyMatch(Event::isCurated));
+
         model.addAttribute("city", city);
         model.addAttribute("cities", cityRegistry.all());
         model.addAttribute("days", days);
         model.addAttribute("totalEvents", allEvents.size());
         model.addAttribute("today", today);
+        model.addAttribute("anyCuratedHidden", anyCuratedHidden);
         return "index";
     }
 

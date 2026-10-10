@@ -32,7 +32,7 @@
     </div>
 </header>
 
-<div class="curated-bar">
+<div class="curated-bar" th:if="${anyCuratedHidden}">
     <button class="curated-toggle" id="curatedToggle" onclick="toggleCurated()">
         Show well-known highlights
     </button>
@@ -85,7 +85,9 @@
         </div>
 
         <div class="events-grid" th:if="${!d.events.isEmpty()}">
-            <article th:classappend="${ev.curated} ? 'event-card--curated' : ''" class="event-card" th:each="ev : ${d.events}">
+            <article th:each="ev : ${d.events}"
+                     class="event-card"
+                     th:classappend="${ev.curated and d.hasLiveEvents} ? 'event-card--curated' : ''">
                 <a class="event-img-link"
                    th:href="${ev.url} ?: '#'"
                    target="_blank" rel="noopener">

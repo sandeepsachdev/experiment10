@@ -29,8 +29,9 @@ public class EventService {
         LocalDate today = CuratedDataLoader.today(city);
         LocalDate end = today.plusDays(7);
 
-        List<Event> all = new ArrayList<>();
-        Set<String> seenTitles = new HashSet<>();
+        // Dedupe by lower-case title; when both a live and a curated event share
+        // a title, keep the live one (curated is the fallback).
+        java.util.LinkedHashMap<String, Event> byTitle = new java.util.LinkedHashMap<>();
 
         for (EventScraper scraper : scrapers) {
             if (!scraper.supports(city)) continue;
@@ -39,8 +40,12 @@ public class EventService {
                 for (Event e : found) {
                     if (e.getTitle() == null) continue;
                     String key = e.getTitle().trim().toLowerCase();
-                    if (seenTitles.add(key)) {
-                        all.add(e);
+                    Event existing = byTitle.get(key);
+                    if (existing == null) {
+                        byTitle.put(key, e);
+                    } else if (existing.isCurated() && !e.isCurated()) {
+                        // Replace a curated placeholder with the live event.
+                        byTitle.put(key, e);
                     }
                 }
             } catch (Exception ex) {
@@ -48,6 +53,8 @@ public class EventService {
                         scraper.sourceName(), city.slug(), ex.getMessage());
             }
         }
+
+        List<Event> all = new ArrayList<>(byTitle.values());
 
         List<Event> filtered = new ArrayList<>();
         for (Event e : all) {
