@@ -146,7 +146,27 @@ Added this section.
       com.sydneyevents.http: DEBUG  # to also dump request headers + response body preview
   ```
 
-### 6. Broken links and stale content
+### 6. Prefer live events over curated highlights
+
+> Curated events are still being shown by default sometimes
+
+The earlier "Show well-known highlights" toggle hid curated events across the
+whole page, so a day with no live scraper hits was left blank and users had
+to toggle on, which then surfaced curated events on every other day too.
+
+- `DayView.isHasLiveEvents()` reports whether a day has at least one
+  non-curated event.
+- The template now applies the `event-card--curated` hiding class only when
+  that day has live events; days with only curated events render them as the
+  fallback by default.
+- `HomeController` adds `anyCuratedHidden` so the toggle bar only appears
+  when there's actually something to toggle.
+- `EventService` dedup prefers a live event over a curated placeholder when
+  both share a title.
+- `HomeController` sorts each day's events live-first so live content leads
+  the grid.
+
+### 7. Broken links and stale content
 
 > The links in this app are not working and the content is stale    improve it
 
@@ -165,6 +185,6 @@ Added this section.
 - Replaced 10 curated links that returned 404.
 - Caches are keyed on city + local date so the 7-day window rolls over at
   midnight; the header shows when the data was actually fetched.
-- Hidden curated highlights no longer use up the per-day slots (live
-  listings now get up to 18 per day); undated Melbourne editorial tiles are
+- Curated highlights no longer use up the per-day slots (live listings now
+  get up to 18 per day, curated ones are appended after them); undated Melbourne editorial tiles are
   dropped; `#` placeholder links and non-http(s) URLs are removed.

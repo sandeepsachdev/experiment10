@@ -56,12 +56,14 @@ public class HomeController {
                     .filter(e -> e.occursOn(date))
                     .toList();
 
+            // Order: live events before curated, then short-run before long-run, then title.
             Comparator<Event> spanThenTitle = Comparator
-                    .<Event, Long>comparing(HomeController::dayCount)
+                    .<Event, Boolean>comparing(Event::isCurated)
+                    .thenComparing(HomeController::dayCount)
                     .thenComparing(Event::getTitle, Comparator.nullsLast(Comparator.naturalOrder()));
 
-            // Curated highlights are hidden by default, so they must not use up
-            // the slots that live listings would otherwise fill.
+            // Cap live listings only; curated highlights are appended after them
+            // (hidden on days with live events) so they never take a live slot.
             List<Event> dayEvents = new ArrayList<>(matching.stream()
                     .filter(e -> !e.isCurated())
                     .sorted(spanThenTitle)
@@ -75,12 +77,17 @@ public class HomeController {
             days.add(new DayView(date, weatherByDate.get(date), dayEvents));
         }
 
+        boolean anyCuratedHidden = days.stream()
+                .anyMatch(d -> d.isHasLiveEvents()
+                        && d.getEvents().stream().anyMatch(Event::isCurated));
+
         model.addAttribute("city", city);
         model.addAttribute("cities", cityRegistry.all());
         model.addAttribute("days", days);
         model.addAttribute("totalEvents", allEvents.stream().filter(e -> !e.isCurated()).count());
         model.addAttribute("lastRefreshed", eventService.lastRefreshed(city));
         model.addAttribute("today", today);
+        model.addAttribute("anyCuratedHidden", anyCuratedHidden);
         return "index";
     }
 
