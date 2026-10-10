@@ -145,3 +145,26 @@ Added this section.
     level:
       com.sydneyevents.http: DEBUG  # to also dump request headers + response body preview
   ```
+
+### 6. Broken links and stale content
+
+> The links in this app are not working and the content is stale    improve it
+
+- **City of Sydney links**: event URLs were built as `/event/<slug>` (404);
+  the site uses `/events/<slug>`.
+- **City of Sydney dates**: each listing's full `dates` list is now used, so
+  long-running exhibitions and recurring markets appear on every day they run
+  in the window, not only on `upcomingDate`. `Event` gained an optional
+  `occurrences` set that `occursOn` honours.
+- **Eventbrite returned nothing**: events sit inside
+  `ItemList > itemListElement > item`, which the JSON-LD walker never entered.
+  Both JSON-LD scrapers now descend into every child node. Eventbrite fetches
+  up to 3 result pages (~60 events per city, for all 18 cities).
+- Fixed the dead Opera House source URL (`/whats-on.html` → `/whats-on`) and
+  resolve relative JSON-LD event URLs against the page.
+- Replaced 10 curated links that returned 404.
+- Caches are keyed on city + local date so the 7-day window rolls over at
+  midnight; the header shows when the data was actually fetched.
+- Hidden curated highlights no longer use up the per-day slots (live
+  listings now get up to 18 per day); undated Melbourne editorial tiles are
+  dropped; `#` placeholder links and non-http(s) URLs are removed.

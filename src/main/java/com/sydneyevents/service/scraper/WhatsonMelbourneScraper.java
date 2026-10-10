@@ -120,6 +120,10 @@ public class WhatsonMelbourneScraper implements EventScraper {
         if (summary == null) summary = card.selectFirst("div.rich-text p");
         String description = summary != null ? summary.text().trim() : null;
 
+        // Undated editorial tiles ("Melbourne's best blockbuster events") aren't events
+        // and would otherwise be repeated on every day of the week.
+        if (startDate == null && href.contains("/article/")) return null;
+
         Event e = new Event();
         e.setTitle(title);
         e.setDescription(description == null || description.isBlank() ? null : description);

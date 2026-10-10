@@ -29,7 +29,8 @@ public class WeatherService {
         this.httpClient = httpClient;
     }
 
-    @Cacheable(value = "weather", key = "#city.slug()")
+    @Cacheable(value = "weather",
+            key = "#city.slug() + ':' + T(com.sydneyevents.service.CuratedDataLoader).today(#city)")
     public List<WeatherDay> getNext7DaysForecast(City city) {
         String url = "https://api.open-meteo.com/v1/forecast"
                 + "?latitude=" + city.latitude()

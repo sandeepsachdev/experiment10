@@ -23,6 +23,8 @@ import java.util.stream.Collectors;
 @Controller
 public class HomeController {
 
+    private static final int MAX_LIVE_PER_DAY = 18;
+
     private final EventService eventService;
     private final WeatherService weatherService;
     private final CityRegistry cityRegistry;
@@ -58,10 +60,17 @@ public class HomeController {
                     .<Event, Long>comparing(HomeController::dayCount)
                     .thenComparing(Event::getTitle, Comparator.nullsLast(Comparator.naturalOrder()));
 
-            List<Event> dayEvents = matching.stream()
+            // Curated highlights are hidden by default, so they must not use up
+            // the slots that live listings would otherwise fill.
+            List<Event> dayEvents = new ArrayList<>(matching.stream()
+                    .filter(e -> !e.isCurated())
                     .sorted(spanThenTitle)
-                    .limit(12)
-                    .toList();
+                    .limit(MAX_LIVE_PER_DAY)
+                    .toList());
+            matching.stream()
+                    .filter(Event::isCurated)
+                    .sorted(spanThenTitle)
+                    .forEach(dayEvents::add);
 
             days.add(new DayView(date, weatherByDate.get(date), dayEvents));
         }
@@ -69,7 +78,8 @@ public class HomeController {
         model.addAttribute("city", city);
         model.addAttribute("cities", cityRegistry.all());
         model.addAttribute("days", days);
-        model.addAttribute("totalEvents", allEvents.size());
+        model.addAttribute("totalEvents", allEvents.stream().filter(e -> !e.isCurated()).count());
+        model.addAttribute("lastRefreshed", eventService.lastRefreshed(city));
         model.addAttribute("today", today);
         return "index";
     }

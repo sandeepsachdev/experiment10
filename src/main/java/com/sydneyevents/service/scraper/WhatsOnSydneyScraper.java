@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sydneyevents.model.City;
 import com.sydneyevents.model.Event;
+import com.sydneyevents.service.CuratedDataLoader;
 import com.sydneyevents.service.EventScraper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,11 +19,14 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Component
 public class WhatsOnSydneyScraper implements EventScraper {
     private static final Logger log = LoggerFactory.getLogger(WhatsOnSydneyScraper.class);
-    private static final String URL = "https://whatson.cityofsydney.nsw.gov.au/?past=false";
+    private static final String BASE = "https://whatson.cityofsydney.nsw.gov.au";
+    private static final String URL = BASE + "/?past=false";
     private static final String AUTO_SECTION_ID = "d4dd3ec0-62fd-11ec-83fa-d576181408f2";
 
     @Value("${app.scrape.user-agent}")
@@ -63,6 +67,8 @@ public class WhatsOnSydneyScraper implements EventScraper {
             JsonNode root = mapper.readTree(script.data());
             JsonNode additionalData = root.path("props").path("pageProps").path("sectionAdditionalData");
 
+            LocalDate today = CuratedDataLoader.today(city);
+            LocalDate end = today.plusDays(7);
             Map<String, Event> bySlug = new LinkedHashMap<>();
 
             // Automated (Algolia-style) section
@@ -70,7 +76,7 @@ public class WhatsOnSydneyScraper implements EventScraper {
             if (autoSection.isObject()) {
                 for (JsonNode hit : autoSection.path("events").path("hits")) {
                     String slug = hit.path("slug").asText();
-                    Event e = toEvent(hit);
+                    Event e = toEvent(hit, today, end);
                     if (e != null && !slug.isBlank()) bySlug.putIfAbsent(slug, e);
                 }
             }
@@ -80,7 +86,7 @@ public class WhatsOnSydneyScraper implements EventScraper {
                 if (!section.isArray()) continue;
                 for (JsonNode item : section) {
                     String key = item.path("slug").asText(item.path("objectID").asText());
-                    if (!key.isBlank()) bySlug.putIfAbsent(key, toEvent(item));
+                    if (!key.isBlank()) bySlug.putIfAbsent(key, toEvent(item, today, end));
                 }
             }
 
@@ -94,21 +100,21 @@ public class WhatsOnSydneyScraper implements EventScraper {
         }
     }
 
-    private Event toEvent(JsonNode item) {
+    private Event toEvent(JsonNode item, LocalDate today, LocalDate end) {
         String name = item.path("name").asText("").trim();
         if (name.isBlank()) return null;
 
         String slug = item.path("slug").asText("");
         String imageUrl = extractImageUrl(item.path("tileImageCloudinary"));
 
-        // Prefer upcomingDate, fall back to first element of dates array
-        String startDateStr = item.path("upcomingDate").asText("");
-        if (startDateStr.isBlank()) {
-            JsonNode dates = item.path("dates");
-            if (dates.isArray() && !dates.isEmpty()) {
-                startDateStr = dates.get(0).asText("");
-            }
+        // "dates" lists sessions (unordered, capped at 100) and upcomingDate is the
+        // next one; keep whichever fall inside our window.
+        TreeSet<LocalDate> occurrences = new TreeSet<>();
+        for (JsonNode d : item.path("dates")) {
+            addIfInWindow(occurrences, parseDate(d.asText("")), today, end);
         }
+        addIfInWindow(occurrences, parseDate(item.path("upcomingDate").asText("")), today, end);
+        if (occurrences.isEmpty()) return null;
 
         String category = "";
         JsonNode cats = item.path("categories");
@@ -119,13 +125,19 @@ public class WhatsOnSydneyScraper implements EventScraper {
         Event e = new Event();
         e.setTitle(name);
         e.setDescription(item.path("strapline").asText("").trim());
-        e.setUrl(slug.isBlank() ? "https://whatson.cityofsydney.nsw.gov.au" : "https://whatson.cityofsydney.nsw.gov.au/event/" + slug);
+        e.setUrl(slug.isBlank() ? BASE : BASE + "/events/" + slug);
         e.setImageUrl(imageUrl);
         e.setVenue(venue.isBlank() ? null : venue);
-        e.setStartDate(parseDate(startDateStr));
+        e.setOccurrences(occurrences);
+        e.setStartDate(occurrences.first());
+        e.setEndDate(occurrences.last());
         e.setCategory(category);
         e.setSource(sourceName());
         return e;
+    }
+
+    private static void addIfInWindow(Set<LocalDate> sink, LocalDate date, LocalDate from, LocalDate to) {
+        if (date != null && !date.isBefore(from) && !date.isAfter(to)) sink.add(date);
     }
 
     private String extractImageUrl(JsonNode imageField) {

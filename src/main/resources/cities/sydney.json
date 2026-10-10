@@ -4,7 +4,7 @@
       "title": "Sydney Opera House — Guided Tour",
       "description": "Step inside one of the world's most iconic buildings. Hourly guided tours reveal the architectural genius of Jørn Utzon, the engineering breakthroughs of its sail-shaped shells, and the stories behind world-premiere performances on its stages.",
       "image": "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1200&q=80",
-      "url": "https://www.sydneyoperahouse.com/visit-us/tours",
+      "url": "https://www.sydneyoperahouse.com/tours",
       "venue": "Sydney Opera House, Bennelong Point",
       "category": "Landmark"
     },
@@ -121,7 +121,7 @@
         "title": "The Rocks Markets",
         "description": "Every Saturday and Sunday under the Harbour Bridge, more than 150 stalls of local artisans, designers and street food. Live music and pop-up bars from late morning. Free entry, kid-friendly.",
         "image": "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=1200&q=80",
-        "url": "https://www.therocks.com/things-to-do/the-rocks-markets",
+        "url": "https://www.therocks.com/whats-on/market-overview",
         "venue": "Playfair Street & George Street, The Rocks",
         "category": "Markets"
       },

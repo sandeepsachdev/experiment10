@@ -26,8 +26,12 @@
         </h1>
         <p class="tagline">Events, weather and things to do across the next 7 days.</p>
         <p class="meta">
-            <span th:text="${totalEvents}">0</span> events found ·
-            Updated <span th:text="${#temporals.format(today, 'EEEE d MMMM yyyy')}">today</span>
+            <span th:text="${totalEvents}">0</span> live events found ·
+            <span th:if="${lastRefreshed != null}">
+                Refreshed <span th:text="${#temporals.format(lastRefreshed, 'h:mm a, EEEE d MMMM')}">9:00 AM, Monday 1 January</span>
+            </span>
+            <span th:unless="${lastRefreshed != null}"
+                  th:text="${#temporals.format(today, 'EEEE d MMMM yyyy')}">today</span>
         </p>
     </div>
 </header>
@@ -87,8 +91,8 @@
         <div class="events-grid" th:if="${!d.events.isEmpty()}">
             <article th:classappend="${ev.curated} ? 'event-card--curated' : ''" class="event-card" th:each="ev : ${d.events}">
                 <a class="event-img-link"
-                   th:href="${ev.url} ?: '#'"
-                   target="_blank" rel="noopener">
+                   th:href="${ev.url}"
+                   th:target="${ev.url != null} ? '_blank'" rel="noopener">
                     <div class="event-img"
                          th:if="${ev.imageUrl != null}"
                          th:style="'background-image: url(' + ${ev.imageUrl} + ')'">
@@ -112,7 +116,10 @@
             </article>
         </div>
 
-        <p class="empty" th:if="${d.events.isEmpty()}">No events found for this day.</p>
+        <p class="empty" th:if="${d.events.?[!curated].isEmpty()}">
+            No live listings found for this day<span th:unless="${d.events.isEmpty()}"> — use
+            “Show well-known highlights” above for ideas</span>.
+        </p>
     </section>
 </main>
 

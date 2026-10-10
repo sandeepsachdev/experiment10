@@ -2,6 +2,8 @@ package com.sydneyevents.model;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Event {
     private String title;
@@ -14,6 +16,8 @@ public class Event {
     private String category;
     private String source;
     private boolean curated;
+    /** Specific dates the event runs on, when known. Empty means every day from start to end. */
+    private Set<LocalDate> occurrences = new TreeSet<>();
 
     public Event() {}
 
@@ -47,7 +51,13 @@ public class Event {
     public boolean isCurated() { return curated; }
     public void setCurated(boolean curated) { this.curated = curated; }
 
+    public Set<LocalDate> getOccurrences() { return occurrences; }
+    public void setOccurrences(Set<LocalDate> occurrences) {
+        this.occurrences = occurrences == null ? new TreeSet<>() : new TreeSet<>(occurrences);
+    }
+
     public boolean occursOn(LocalDate date) {
+        if (!occurrences.isEmpty()) return occurrences.contains(date);
         if (startDate == null) return false;
         LocalDate end = endDate != null ? endDate : startDate;
         return !date.isBefore(startDate) && !date.isAfter(end);

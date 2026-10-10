@@ -8,11 +8,15 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class EventService {
@@ -24,7 +28,11 @@ public class EventService {
         this.scrapers = scrapers;
     }
 
-    @Cacheable(value = "events", key = "#city.slug()")
+    private final Map<String, ZonedDateTime> lastRefreshed = new ConcurrentHashMap<>();
+
+    // Keyed by date as well as city so the 7-day window rolls over at midnight.
+    @Cacheable(value = "events",
+            key = "#city.slug() + ':' + T(com.sydneyevents.service.CuratedDataLoader).today(#city)")
     public List<Event> getUpcomingEvents(City city) {
         LocalDate today = CuratedDataLoader.today(city);
         LocalDate end = today.plusDays(7);
@@ -38,6 +46,7 @@ public class EventService {
                 List<Event> found = scraper.scrape(city);
                 for (Event e : found) {
                     if (e.getTitle() == null) continue;
+                    if (e.getUrl() != null && !e.getUrl().matches("(?i)^https?://.+")) e.setUrl(null);
                     String key = e.getTitle().trim().toLowerCase();
                     if (seenTitles.add(key)) {
                         all.add(e);
@@ -68,8 +77,14 @@ public class EventService {
                 .comparing(Event::getStartDate, Comparator.nullsLast(Comparator.naturalOrder()))
                 .thenComparing(Event::getTitle, Comparator.nullsLast(Comparator.naturalOrder())));
 
+        lastRefreshed.put(city.slug(), ZonedDateTime.now(ZoneId.of(city.timezone())));
         log.info("Aggregated {} unique events for {} (next 7 days) from {} sources",
                 filtered.size(), city.name(), scrapers.size());
         return filtered;
+    }
+
+    /** When events for this city were last fetched from the sources (null if never). */
+    public ZonedDateTime lastRefreshed(City city) {
+        return lastRefreshed.get(city.slug());
     }
 }

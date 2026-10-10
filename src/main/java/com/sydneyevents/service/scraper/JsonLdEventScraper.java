@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.net.URI;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class JsonLdEventScraper implements EventScraper {
     private static final Map<String, List<String>> CITY_URLS = Map.of(
             "sydney", List.of(
                     "https://www.sydney.com/events",
-                    "https://www.sydneyoperahouse.com/whats-on.html"
+                    "https://www.sydneyoperahouse.com/whats-on"
             ),
             "melbourne", List.of(
                     "https://www.artscentremelbourne.com.au/whats-on",
@@ -96,15 +97,14 @@ public class JsonLdEventScraper implements EventScraper {
         }
         if (!node.isObject()) return;
 
-        if (node.has("@graph")) {
-            collect(node.get("@graph"), pageUrl, sink);
-        }
-
         String type = node.path("@type").asText("");
-        if (type.equalsIgnoreCase("Event") || type.toLowerCase().contains("event")) {
+        if (type.toLowerCase().contains("event")) {
             Event e = toEvent(node, pageUrl);
             if (e != null) sink.add(e);
+            return;
         }
+        // Descend into @graph, ItemList > itemListElement > item, etc.
+        node.forEach(child -> collect(child, pageUrl, sink));
     }
 
     private Event toEvent(JsonNode n, String pageUrl) {
@@ -114,7 +114,7 @@ public class JsonLdEventScraper implements EventScraper {
         Event e = new Event();
         e.setTitle(title);
         e.setDescription(textOrNull(n, "description"));
-        e.setUrl(firstNonBlank(textOrNull(n, "url"), pageUrl));
+        e.setUrl(absolute(firstNonBlank(textOrNull(n, "url"), pageUrl), pageUrl));
 
         JsonNode img = n.path("image");
         if (img.isTextual()) {
@@ -148,6 +148,14 @@ public class JsonLdEventScraper implements EventScraper {
     private String textOrNull(JsonNode n, String field) {
         JsonNode v = n.path(field);
         return v.isMissingNode() || v.isNull() || !v.isTextual() ? null : v.asText();
+    }
+
+    private String absolute(String url, String pageUrl) {
+        try {
+            return URI.create(pageUrl).resolve(url.trim()).toString();
+        } catch (Exception e) {
+            return pageUrl;
+        }
     }
 
     private String firstNonBlank(String a, String b) {

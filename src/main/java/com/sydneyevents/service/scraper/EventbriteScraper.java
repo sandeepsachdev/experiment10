@@ -20,11 +20,13 @@ import java.util.List;
 
 /**
  * Scrapes Eventbrite's public city listings page.
- * Eventbrite ships schema.org/Event JSON-LD on every card.
+ * Eventbrite ships an ItemList of schema.org/Event JSON-LD on each results page.
  */
 @Component
 public class EventbriteScraper implements EventScraper {
     private static final Logger log = LoggerFactory.getLogger(EventbriteScraper.class);
+
+    private static final int PAGES = 3;
 
     private final ObjectMapper mapper = new ObjectMapper();
 
@@ -41,24 +43,30 @@ public class EventbriteScraper implements EventScraper {
 
     @Override
     public List<Event> scrape(City city) {
-        String url = "https://www.eventbrite.com.au/d/australia--"
-                + city.slug() + "/events--this-week/";
         List<Event> events = new ArrayList<>();
-        try {
-            log.info("Eventbrite request: GET {}", url);
-            Document doc = Jsoup.connect(url)
-                    .userAgent(userAgent)
-                    .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
-                    .header("Accept-Language", "en-AU,en;q=0.9")
-                    .timeout(timeoutMs)
-                    .get();
+        for (int page = 1; page <= PAGES; page++) {
+            String url = "https://www.eventbrite.com.au/d/australia--"
+                    + city.slug() + "/events--this-week/?page=" + page;
+            int before = events.size();
+            try {
+                log.info("Eventbrite request: GET {}", url);
+                Document doc = Jsoup.connect(url)
+                        .userAgent(userAgent)
+                        .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+                        .header("Accept-Language", "en-AU,en;q=0.9")
+                        .timeout(timeoutMs)
+                        .get();
 
-            for (Element script : doc.select("script[type=application/ld+json]")) {
-                collect(mapper.readTree(script.data()), events);
+                for (Element script : doc.select("script[type=application/ld+json]")) {
+                    collect(mapper.readTree(script.data()), events);
+                }
+                log.info("Eventbrite response: {} events from page {} for {}",
+                        events.size() - before, page, city.slug());
+            } catch (Exception e) {
+                log.warn("EventbriteScraper failed for {} page {}: {}", city.slug(), page, e.getMessage());
+                break;
             }
-            log.info("Eventbrite response: {} events for {}", events.size(), city.slug());
-        } catch (Exception e) {
-            log.warn("EventbriteScraper failed for {}: {}", city.slug(), e.getMessage());
+            if (events.size() == before) break;
         }
         return events;
     }
@@ -70,13 +78,15 @@ public class EventbriteScraper implements EventScraper {
             return;
         }
         if (!node.isObject()) return;
-        if (node.has("@graph")) collect(node.get("@graph"), sink);
 
         String type = node.path("@type").asText("");
         if (type.toLowerCase().contains("event")) {
             Event e = toEvent(node);
             if (e != null) sink.add(e);
+            return;
         }
+        // Events are usually nested, e.g. ItemList > itemListElement > item
+        node.forEach(child -> collect(child, sink));
     }
 
     private Event toEvent(JsonNode n) {
