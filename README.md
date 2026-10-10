@@ -145,3 +145,23 @@ Added this section.
     level:
       com.sydneyevents.http: DEBUG  # to also dump request headers + response body preview
   ```
+
+### 6. Prefer live events over curated highlights
+
+> Curated events are still being shown by default sometimes
+
+The earlier "Show well-known highlights" toggle hid curated events across the
+whole page, so a day with no live scraper hits was left blank and users had
+to toggle on, which then surfaced curated events on every other day too.
+
+- `DayView.isHasLiveEvents()` reports whether a day has at least one
+  non-curated event.
+- The template now applies the `event-card--curated` hiding class only when
+  that day has live events; days with only curated events render them as the
+  fallback by default.
+- `HomeController` adds `anyCuratedHidden` so the toggle bar only appears
+  when there's actually something to toggle.
+- `EventService` dedup prefers a live event over a curated placeholder when
+  both share a title.
+- `HomeController` sorts each day's events live-first so live content leads
+  the grid.
