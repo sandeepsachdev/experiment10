@@ -188,3 +188,19 @@ to toggle on, which then surfaced curated events on every other day too.
 - Curated highlights no longer use up the per-day slots (live listings now
   get up to 18 per day, curated ones are appended after them); undated Melbourne editorial tiles are
   dropped; `#` placeholder links and non-http(s) URLs are removed.
+
+### 8. Compact layout
+
+> Make the display much more compact so several items are visible without scrolling
+
+- Hero shrunk to one band: the city picker is part of the title
+  ("What's on in [Sydney ▾]"), with event count, refresh time and the
+  highlights toggle on one small line beneath.
+- Each day's header is a single row: day, date, Today badge and an inline
+  weather summary (icon, high/low, rain %, UV; full details in the tooltip).
+- Event cards are now compact rows: a 64–76px lazy-loaded thumbnail beside a
+  2-line title (which is the link), category · venue, and a 2-line
+  description. One column on phones, a multi-column grid on wider screens.
+- Eventbrite thumbnails fall back to the original image when its resizing
+  CDN refuses the request; the redundant "Eventbrite" category is dropped and
+  category slugs display without hyphens.

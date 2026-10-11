@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -105,15 +107,30 @@ public class EventbriteScraper implements EventScraper {
             e.setImageUrl(f.isTextual() ? f.asText() : f.path("url").asText(null));
         }
 
+        e.setImageFallbackUrl(unwrapResizedImage(e.getImageUrl()));
+
         e.setStartDate(parseDate(textOrNull(n, "startDate")));
         e.setEndDate(parseDate(textOrNull(n, "endDate")));
 
         JsonNode loc = n.path("location");
         if (loc.isObject()) e.setVenue(loc.path("name").asText(null));
 
-        e.setCategory("Eventbrite");
         e.setSource(sourceName());
         return e;
+    }
+
+    /**
+     * img.evbuc.com/&lt;url-encoded original&gt;?w=512... is Eventbrite's resizing CDN;
+     * return the original it wraps so the page can fall back to it.
+     */
+    private String unwrapResizedImage(String url) {
+        String prefix = "https://img.evbuc.com/";
+        if (url == null || !url.startsWith(prefix)) return null;
+        String inner = url.substring(prefix.length());
+        int q = inner.indexOf('?');
+        if (q >= 0) inner = inner.substring(0, q);
+        String decoded = URLDecoder.decode(inner, StandardCharsets.UTF_8);
+        return decoded.startsWith("https://") ? decoded : null;
     }
 
     private String textOrNull(JsonNode n, String f) {

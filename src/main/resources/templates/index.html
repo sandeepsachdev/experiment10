@@ -10,10 +10,10 @@
 <body>
 
 <header class="hero">
-    <div class="hero-bg" th:style="'background-image: linear-gradient(120deg, rgba(10, 61, 98, 0.78), rgba(30, 96, 145, 0.5)), url(' + ${city.heroImage()} + ');'"></div>
+    <div class="hero-bg" th:style="'background-image: linear-gradient(120deg, rgba(10, 61, 98, 0.85), rgba(30, 96, 145, 0.6)), url(' + ${city.heroImage()} + ');'"></div>
     <div class="hero-content">
         <form class="city-picker" method="get" action="/">
-            <label for="city">Show me what's on in</label>
+            <h1><label for="city">What's on in</label></h1>
             <select id="city" name="city" onchange="this.form.submit()">
                 <option th:each="c : ${cities}"
                         th:value="${c.slug()}"
@@ -21,26 +21,17 @@
                         th:selected="${c.slug() == city.slug()}">Sydney · NSW</option>
             </select>
         </form>
-        <h1>
-            What's On in <span th:text="${city.name()}">Sydney</span>
-        </h1>
-        <p class="tagline">Events, weather and things to do across the next 7 days.</p>
         <p class="meta">
-            <span th:text="${totalEvents}">0</span> live events found ·
-            <span th:if="${lastRefreshed != null}">
-                Refreshed <span th:text="${#temporals.format(lastRefreshed, 'h:mm a, EEEE d MMMM')}">9:00 AM, Monday 1 January</span>
-            </span>
+            <span th:text="${totalEvents}">0</span> live events, next 7 days ·
+            <span th:if="${lastRefreshed != null}"
+                  th:text="'refreshed ' + ${#temporals.format(lastRefreshed, 'h:mm a')}">refreshed 9:00 AM</span>
             <span th:unless="${lastRefreshed != null}"
-                  th:text="${#temporals.format(today, 'EEEE d MMMM yyyy')}">today</span>
+                  th:text="${#temporals.format(today, 'EEE d MMM')}">today</span>
+            <button type="button" class="curated-toggle" id="curatedToggle"
+                    th:if="${anyCuratedHidden}" onclick="toggleCurated()">Show highlights</button>
         </p>
     </div>
 </header>
-
-<div class="curated-bar" th:if="${anyCuratedHidden}">
-    <button class="curated-toggle" id="curatedToggle" onclick="toggleCurated()">
-        Show well-known highlights
-    </button>
-</div>
 
 <nav class="day-nav">
     <a th:each="d : ${days}"
@@ -49,71 +40,53 @@
        class="day-pill">
         <span class="pill-day" th:text="${d.dayName.substring(0, 3)}">Mon</span>
         <span class="pill-date" th:text="${d.dateLabel}">1 Jan</span>
-        <span class="pill-temp" th:if="${d.weather != null}">
-            <span th:text="${d.weather.icon}">☀</span>
-            <span th:text="${d.weather.maxTempRounded} + '°'">22°</span>
-        </span>
+        <span class="pill-temp" th:if="${d.weather != null}"
+              th:text="${d.weather.icon} + ' ' + ${d.weather.maxTempRounded} + '°'">☀ 22°</span>
     </a>
 </nav>
 
 <main>
     <section th:each="d : ${days}" class="day-section" th:id="'day-' + ${d.date}">
         <div class="day-header">
-            <div class="day-title">
-                <h2>
-                    <span th:text="${d.dayName}">Monday</span>
-                    <span class="badge" th:if="${d.today}">Today</span>
-                </h2>
-                <p class="day-date" th:text="${#temporals.format(d.date, 'd MMMM yyyy')}">1 January</p>
+            <h2>
+                <span th:text="${d.dayName}">Monday</span>
+                <span class="day-date" th:text="${#temporals.format(d.date, 'd MMM')}">1 Jan</span>
+                <span class="badge" th:if="${d.today}">Today</span>
+            </h2>
+            <div class="weather" th:if="${d.weather != null}"
+                 th:title="${d.weather.description} + ' · wind ' + ${#numbers.formatDecimal(d.weather.windKph, 1, 0)} + ' km/h · sunrise ' + ${d.weather.sunrise} + ' · sunset ' + ${d.weather.sunset}">
+                <span class="w-icon" th:text="${d.weather.icon}">☀</span>
+                <span class="hi" th:text="${d.weather.maxTempRounded} + '°'">22°</span><span class="lo" th:text="'/' + ${d.weather.minTempRounded} + '°'">/14°</span>
+                <span class="w-extra" th:text="'💧' + ${d.weather.precipitationProbability} + '%'">💧10%</span>
+                <span class="w-extra" th:text="'UV ' + ${#numbers.formatDecimal(d.weather.uvIndex, 1, 0)}">UV 5</span>
+                <span class="w-wide" th:text="${d.weather.description}">Sunny</span>
             </div>
-
-            <div class="weather-card" th:if="${d.weather != null}">
-                <div class="w-icon" th:text="${d.weather.icon}">☀</div>
-                <div class="w-main">
-                    <div class="w-temp">
-                        <span class="hi" th:text="${d.weather.maxTempRounded} + '°'">22°</span>
-                        <span class="lo" th:text="${d.weather.minTempRounded} + '°'">14°</span>
-                    </div>
-                    <div class="w-desc" th:text="${d.weather.description}">Sunny</div>
-                </div>
-                <div class="w-meta">
-                    <span title="Chance of rain">💧 <span th:text="${d.weather.precipitationProbability} + '%'">10%</span></span>
-                    <span title="Max wind">🌬️ <span th:text="${#numbers.formatDecimal(d.weather.windKph, 1, 0)} + ' km/h'">12 km/h</span></span>
-                    <span title="UV index">☼ UV <span th:text="${#numbers.formatDecimal(d.weather.uvIndex, 1, 0)}">5</span></span>
-                    <span title="Sunrise / sunset">🌅 <span th:text="${d.weather.sunrise}">06:30</span> · 🌇 <span th:text="${d.weather.sunset}">17:30</span></span>
-                </div>
-            </div>
-            <div class="weather-card weather-missing" th:if="${d.weather == null}">
-                <div class="w-desc">Weather forecast unavailable</div>
-            </div>
+            <div class="weather weather-missing" th:if="${d.weather == null}">No forecast</div>
         </div>
 
-        <div class="events-grid" th:if="${!d.events.isEmpty()}">
+        <div class="events-list" th:if="${!d.events.isEmpty()}">
             <article th:each="ev : ${d.events}"
                      class="event-card"
                      th:classappend="${ev.curated and d.hasLiveEvents} ? 'event-card--curated' : ''">
-                <a class="event-img-link"
-                   th:href="${ev.url}"
-                   th:target="${ev.url != null} ? '_blank'" rel="noopener">
-                    <div class="event-img"
-                         th:if="${ev.imageUrl != null}"
-                         th:style="'background-image: url(' + ${ev.imageUrl} + ')'">
-                    </div>
-                    <div class="event-img placeholder" th:if="${ev.imageUrl == null}">
-                        <span>🎟️</span>
-                    </div>
-                    <span class="event-category" th:if="${ev.category}" th:text="${ev.category}">Music</span>
+                <a class="event-thumb" th:href="${ev.url}"
+                   th:target="${ev.url != null} ? '_blank'" rel="noopener" tabindex="-1" aria-hidden="true">
+                    <img th:if="${ev.imageUrl != null}" th:src="${ev.imageUrl}" alt=""
+                         loading="lazy" decoding="async" referrerpolicy="no-referrer"
+                         th:attr="data-fallback=${ev.imageFallbackUrl}"
+                         onerror="var f=this.dataset.fallback;if(f){this.removeAttribute('data-fallback');this.src=f;}else{this.remove();}"/>
                 </a>
                 <div class="event-body">
-                    <h3 th:text="${ev.title}">Event title</h3>
-                    <p class="event-venue" th:if="${ev.venue}" th:text="${ev.venue}">Venue</p>
+                    <h3>
+                        <a th:if="${ev.url}" th:href="${ev.url}" target="_blank" rel="noopener"
+                           th:text="${ev.title}">Event title</a>
+                        <span th:unless="${ev.url}" th:text="${ev.title}">Event title</span>
+                    </h3>
+                    <p class="event-meta">
+                        <span class="event-category" th:if="${ev.category}" th:text="${#strings.replace(ev.category, '-', ' ')}">Music</span>
+                        <span class="event-venue" th:if="${ev.venue}" th:text="${ev.venue}">Venue</span>
+                    </p>
                     <p class="event-desc" th:if="${ev.description}" th:text="${ev.description}">Description</p>
-                    <div class="event-footer">
-                        <span class="event-source" th:text="${ev.source}">Source</span>
-                        <a th:if="${ev.url}" th:href="${ev.url}" target="_blank" rel="noopener" class="event-link">
-                            More info →
-                        </a>
-                    </div>
+                    <p class="event-source" th:text="${ev.source}">Source</p>
                 </div>
             </article>
         </div>
@@ -140,13 +113,13 @@
         var showing = document.body.classList.toggle('show-curated');
         localStorage.setItem('showCurated', showing ? '1' : '0');
         document.getElementById('curatedToggle').textContent =
-            showing ? 'Hide well-known highlights' : 'Show well-known highlights';
+            showing ? 'Hide highlights' : 'Show highlights';
     }
     (function() {
         if (localStorage.getItem('showCurated') === '1') {
             document.body.classList.add('show-curated');
             var btn = document.getElementById('curatedToggle');
-            if (btn) btn.textContent = 'Hide well-known highlights';
+            if (btn) btn.textContent = 'Hide highlights';
         }
     })();
 </script>

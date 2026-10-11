@@ -9,6 +9,8 @@ public class Event {
     private String title;
     private String description;
     private String imageUrl;
+    /** Tried by the page if imageUrl fails to load (e.g. a resizing CDN refuses the request). */
+    private String imageFallbackUrl;
     private String url;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -29,6 +31,9 @@ public class Event {
 
     public String getImageUrl() { return imageUrl; }
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+
+    public String getImageFallbackUrl() { return imageFallbackUrl; }
+    public void setImageFallbackUrl(String imageFallbackUrl) { this.imageFallbackUrl = imageFallbackUrl; }
 
     public String getUrl() { return url; }
     public void setUrl(String url) { this.url = url; }
